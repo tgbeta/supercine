@@ -1,70 +1,185 @@
-# Getting Started with Create React App
+Final Project | CICC
+Group: Clelia | Tatiana | Vinicius
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Divide on the project
 
-## Available Scripts
+What is the project about?
+In general about movies.
+https://www.themoviedb.org/documentation/api
 
-In the project directory, you can run:
+What is the goal of the project?
+To help the user find good movies according to their own interests.
+What is the target user?
+Anyone interested in movies who has access to the internet.
+Is there any existing project that you can use as a reference?
+We found one in Brazil
+https://www.adorocinema.com/
 
-### `npm start`
+    	And other one from the API we are gonna use.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+https://www.themoviedb.org/
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# Everything begins with data
 
-### `npm test`
+What is the data you can access or get?
+User input
+Favorite movie classification
+Watch list
+reviews
+Seed in
+Existing users
+API
+Movies, Images, Top Rated Popular
+Movie classification
+What assets do you need and from where to get it?
+API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# User stories / User scenarios
 
-### `npm run build`
+What are the user stories?
+Title: Search for movie
+As a user I want to be able to look for movies I would like to watch.
+Title: Add movie to watch list
+As a user I want to be able to add the movies that I like to my personal watch list.
+Title: Add movie to favorites
+As a user I want to be able to add my favorite movies to a list I can review later.
+Title: Add review to the movie
+As a user I want to be able to review the movies I watched to share my opinion.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# MVP (Minimum Viable Product)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Minimum Viable Product (MVP) is a product with just enough features to satisfy early customers and provide feedback for future product development.
+Some features that we could have added:
+Movies search
+Add/delete movies to a watch list
+Add/delete movies to a favorite list
+Add reviews
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Tech choices
 
-### `npm run eject`
+What technologies will you use?
+Libraries
+Bootstrap
+SASS
+Axios
+Front-end
+React
+Back-end
+Node
+Database
+PostgreSQL
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# ERD
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Entities are nouns. Identify the nouns in your user stories.
+  Movie
+  User
+  Watch List
+  Review
+- Columns are attributes. Identify the attributes of each noun.
+  Movie
+  ID
+  Title
+  Genre
+  apikey
+  User
+  ID
+  Name
+  Email
+  Date Insert
+  Watch List
+  ID
+  User ID
+  Movie ID
+  is Watched
+  is Favorite
+  Date Insert
+  Review
+  ID
+  User ID
+  Movie ID
+  Rate
+  Comment
+  Date Insert
+- Identify the entities and relationships:
+  - One to many
+    Movie
+    User
+  - Many to many (create a join table)
+    Watch List
+    Review
+- Draw the ERD
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Wireframes
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Draw the wireframes
+https://whimsical.com/final-project-34xZ1cvj8fCYryYyA1RgL1
 
-## Learn More
+# Page Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`/home`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+if user is logged in:
 
-### Code Splitting
+- returns HTML with:
+  - the site header
+  - welcome text
+  - search bar
+  - top 10 movies
+  - upcoming movies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+if user is not logged in:
 
-### Analyzing the Bundle Size
+- returns HTML with:
+  - the site header
+  - welcome text
+  - search bar
+  - top 10 movies
+  - upcoming movies
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+`/search`
 
-### Making a Progressive Web App
+if user is logged in:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- returns HTML with:
+  - the results of the search
 
-### Advanced Configuration
+if user is not logged in:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- returns HTML with:
+  - the results of the search
 
-### Deployment
+`/movies`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+if user is logged in:
 
-### `npm run build` fails to minify
+- returns HTML with:
+  - information about the movie selected
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+if user is not logged in:
+
+- returns HTML with:
+  - information about the movie selected
+
+`/list`
+
+if user is logged in:
+
+- returns HTML with:
+  - returns a list about favorite movies
+  - returns a list of to be watched movies
+
+if user is not logged in:
+
+- returns HTML with:
+  - returns to page asking for login
+
+# Route Checklist
+
+### GET `favorite movie`
+
+### GET `watch list`
+
+### POST `favorite movie`
+
+### POST `watch list`
