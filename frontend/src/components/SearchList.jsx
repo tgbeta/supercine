@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 
-export default function SearchMovie(props) {
-    const { movieSearch, setMovieSearch } = props;
+export default function SearchList(props) {
+    const { SearchList, setSearchList } = props;
 
-    const [movies, setMovies] = useState([]);
-
+    const [search, setSearch] = useState([]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -17,17 +16,16 @@ export default function SearchMovie(props) {
                 setMovies(res.data.results);
             });
         }
-
-
     }
+
 
     return (
         <section>
             <div>
             <form onSubmit={handleSubmit}>
                 <h2 className='form-title'>Search Movie</h2>
-                <div className='movie-container'>
-                    <input  maxLength={140} placeholder='What movie are you interested in?' className='movie-input' type="text" name="description" value={movieSearch} onChange={(e) => setMovieSearch(e.target.value)} />
+                <div className='search-container'>
+                    <input  maxLength={140} placeholder='What movie are you interested in?' className='movie-input' type="text" name="description" value={movies} onChange={(e) => setSearch(e.target.value)} />
                     <button className='search-btn'>Search</button>
                     <button className='search-btn'>Favorite List</button>
                     <button className='search-btn'>Watch List</button>
