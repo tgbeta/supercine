@@ -28,9 +28,7 @@ export default function SearchMovie(props) {
                 <h2 className='form-title'>Search Movie</h2>
                 <div className='movie-container'>
                     <input  maxLength={140} placeholder='What movie are you interested in?' className='movie-input' type="text" name="description" value={movieSearch} onChange={(e) => setMovieSearch(e.target.value)} />
-                    <button className='search-btn'>Search</button>
-                    <button className='search-btn'>Favorite List</button>
-                    <button className='search-btn'>Watch List</button>
+                    <button className='search-btn' >Search</button>
                 </div>
             </form>
             </div>

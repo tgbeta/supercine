@@ -1,5 +1,5 @@
 const express = require("express");
-const { movieSearch } = require("./controllers/search.js");
+const { movieSearch } = require("./controllers/movies");
 require("dotenv").config();
 
 const server = express();
