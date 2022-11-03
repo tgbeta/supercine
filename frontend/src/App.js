@@ -1,21 +1,22 @@
 import "./App.css";
-import SearchMovie from "./components/SearchMovie.jsx";
-import React, { useState, useEffect } from "react";
-import {io} from "socket.io-client"
-
+import React from "react";
+import AppMovie from "./components/AppMovie.jsx";
+import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
 
 function App() {
-  const [movieSearch, setMovieSearch] = useState([]);
-
-     // Web sockets test
-   const socket=io("http://localhost:8005",{ transports : ['websocket'] })
-
-
-
   return (
-    <div className="App">
-      <SearchMovie movieSearch={movieSearch} setMovieSearch={setMovieSearch} />
-    </div>
+    <BrowserRouter>
+      <nav>
+        <Link to="/home">Home</Link>
+        <Link to="/searchList">Search List</Link>
+        <Link to="/list">List</Link>
+      </nav>
+      <Routes>
+        <Route path="/home" element={<h1>Home</h1>} />
+        <Route path="/searchList" element={<h1>Search List</h1>} />
+        <Route path="/list" element={<h1>List</h1>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
