@@ -4,22 +4,22 @@ import React, { useState } from 'react';
 export default function SearchMovie(props) {
     const { movieSearch } = props;
 
-    //const [movies, setMovies] = useState([]);
+    const [movies, setMovies] = useState([]);
 
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
         
-    //     if (movieSearch == "") {
-    //          alert("What movie are you looking for?");
-    //     } else {
-    //         axios.get(`/search?movie=${movieSearch}`).then((res) => {
-    //             setMovies(res.data.results);
-    //         });
-    //     }
+        if (movieSearch == "") {
+             alert("What movie are you looking for?");
+        } else {
+            axios.get(`/search?movie=${movieSearch}`).then((res) => {
+                setMovies(res.data.results);
+            });
+        }
 
 
-    // }
+    }
 
     return (
         <section>

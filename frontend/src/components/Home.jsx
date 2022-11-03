@@ -1,7 +1,19 @@
-export default function Home() {
+import SearchMovie from "./Search.jsx";
 
-    return <div></div>
+export default function Home(props) {
 
-    //usar navigate para passar para a proxima pagina
-    //tentar passar o movie
+    //Search movie
+    //Popular movies
+    //Upcoming movies
+
+    
+    return (
+        <div>
+            {
+                <SearchMovie movieSearch={movieSearch} setMovieSearch={setMovieSearch}/>
+            }
+        </div>
+    )
+
+    
 }
