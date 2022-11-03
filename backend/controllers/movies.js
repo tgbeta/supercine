@@ -8,7 +8,6 @@ const movieSearch = (req, res) => {
       `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB}&query=${req.query.movie}`
     )
     .then((response) => {
-      console.log("teste", response.data);
       res.json(response.data);
     })
     .catch((error) => {
