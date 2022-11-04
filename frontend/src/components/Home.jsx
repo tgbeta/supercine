@@ -1,4 +1,5 @@
-import SearchMovie from "./Search.jsx";
+import SearchMovie  from "./Search.jsx";
+import { useState } from "react";
 
 export default function Home(props) {
 
@@ -6,6 +7,7 @@ export default function Home(props) {
     //Popular movies
     //Upcoming movies
 
+    const [movieSearch, setMovieSearch] = useState([]);
     
     return (
         <div>
