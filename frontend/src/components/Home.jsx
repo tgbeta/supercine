@@ -1,14 +1,19 @@
-import SearchMovie  from "./Search.jsx";
+//PAGINA PRINCIPAL
+import SearchMovie  from "./SearchMovie.jsx";
 import { useState } from "react";
 
+
 export default function Home(props) {
+
+    const [movieSearch, setMovieSearch] = useState([]);
 
     //Search movie
     //Popular movies
     //Upcoming movies
 
-    const [movieSearch, setMovieSearch] = useState([]);
-    
+     //usar navigate para passar para a proxima pagina
+    //tentar passar o movie
+
     return (
         <div>
             {
