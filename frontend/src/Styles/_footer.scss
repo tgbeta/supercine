@@ -1,0 +1,19 @@
+.footer{
+    background-color: black;
+    color: $main-color;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JostSemiBold';
+    ul{
+        margin: 0;
+        li{
+            display: inline-block;
+            margin:  0 40px;
+            text-transform: uppercase;
+            flex-wrap: wrap;
+        }
+    }
+}
