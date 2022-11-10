@@ -1,18 +1,23 @@
-import SearchMovie  from "./Search.jsx";
+//PAGINA PRINCIPAL
+import SearchMovie  from "./SearchMovie.jsx";
 import { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 export default function Home(props) {
+
+    const [movieSearch, setMovieSearch] = useState([]);
 
     //Search movie
     //Popular movies
     //Upcoming movies
 
-    const [movieSearch, setMovieSearch] = useState([]);
-    
+     //usar navigate para passar para a proxima pagina
+    //tentar passar o movie
+
     return (
         <div>
             {
