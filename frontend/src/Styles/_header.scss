@@ -1,0 +1,53 @@
+.header{
+    background-image: url(../assets/bg-cinema.png);
+    height: 40vh;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 100px;
+    h2, p{
+        font-family: 'JostSemiBold';
+        text-transform: uppercase;
+    }
+    h2{
+        font-size: 2.5rem;
+        margin: 0;
+    }
+    p{
+        font-size: 1.2rem;
+    }
+}
+
+.movie-input{
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    outline: none;
+    width: 620px;
+    color: #6A6A6A;
+    text-transform: uppercase;
+}
+
+.search-btn{
+    background-color: $main-color;
+    border: none;
+    padding: 0px 10px 4px 10px;
+    font-size: 22px;
+}
+
+.select-gender{
+    padding: 9px 12px;
+    background-color: white;
+    border: none;
+    margin: 0 8px;
+    outline: none;
+    border-right: 8px solid white;
+    color: #6A6A6A;
+    text-transform: uppercase;
+}

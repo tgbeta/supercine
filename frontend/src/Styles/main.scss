@@ -1,0 +1,14 @@
+$main-color: #F2CD36;
+
+@import "fonts";
+@import "nav";
+@import "header";
+@import "join-us";
+@import "movie-list";
+@import "footer";
+
+:hover, a{
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+

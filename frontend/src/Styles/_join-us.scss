@@ -1,0 +1,34 @@
+.join-us{
+    background-image: url(../assets/bg-join-us.jpg);
+    height: 40vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.join-us-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 40vh;
+    font-family: 'JostSemiBold';
+    text-transform: uppercase;
+    color: white;
+    h2{
+        font-size: 3.5rem;
+        margin: 0;
+    }
+    p{
+        font-size: 1.6rem;
+    }
+    button{
+        background-color: $main-color;
+        border: none;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        &:hover{
+            background-color: black;
+            color: $main-color;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+.navbar{
+    background-color: black;
+    font-family: 'JostSemiBold';
+    font-size: 1.1rem;
+    padding: 0 100px;
+}
+
+.navbar-nav{
+    a{
+        color: $main-color;
+        text-transform: uppercase;
+        padding: 4px 20px;
+        &:hover{
+            color: black;
+            background-color: $main-color;
+        }
+    }
+
+}

@@ -7,6 +7,8 @@ export default function Movie(props) {
     const [favorite, setFavorite] = useState(false);
     const [watchList, setWatchList] = useState(false);
 
+    const {movie} = props;
+
     const handleFavorite = () => {
         setFavorite(!favorite); // usar true e false para validacao da lista
 

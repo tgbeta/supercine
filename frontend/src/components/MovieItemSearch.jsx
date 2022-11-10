@@ -9,7 +9,7 @@ export default function MovieItem(props) {
     return (
         <section>
             <div classname='movie-main' id={movie._id} key={movie._id}>
-                {/* <img style={} src={} alt="" /> */}
+                <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="" />
                 <p>{movie.original_title}</p>
                 <p>{movie.release_date}</p>
                 <h2>{movie.overview}</h2>
