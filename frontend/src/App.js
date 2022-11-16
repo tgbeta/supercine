@@ -1,22 +1,64 @@
-import "./App.css";
 import React from "react";
 import AppMovie from "./components/AppMovie.jsx";
 import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
 import Home from "./components/Home";
 import List from "./components/List";
+import SearchList from "./components/SearchList";
+import Movie from "./components/Movie";
+import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Styles/main.css";
+import logo from "./assets/logo.png";
+import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
+import { useState } from "react";
+import { AppContext } from "./components/NavBar/AppContext.jsx";
+import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
 
 function App() {
+  const [isLogIn, setIsLogIn] = useState(false);
+
   return (
-    <BrowserRouter>
-      <nav>
-        <Link to="/home">Home</Link>
-        <Link to="/list">List</Link>
-      </nav>
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/list" element={<List />} />
-      </Routes>
-    </BrowserRouter>
+    <AppContext.Provider value={{ isLogIn, setIsLogIn }}>
+      <BrowserRouter>
+        {/* <nav>
+            <Link to="/home">Home</Link>
+            <Link to="/list">List</Link>
+          </nav> */}
+
+        {/* <Navbar expand="lg">
+          <Container fluid>
+            <Navbar.Brand href="/home">
+              <img src={logo} />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="me-auto">
+                <Nav.Link href="/home">Home</Nav.Link>
+                <Nav.Link href="/list">Link</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar> */}
+
+        <NavBarAuth />
+
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/SearchList" element={<SearchList />} />
+
+          <Route
+            path="/list"
+            element={
+              <ProtectedRoute>
+                <List />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/movie" element={<Movie />} />
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 

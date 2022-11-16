@@ -1,0 +1,16 @@
+.movies-list{
+    padding: 50px 100px;
+    h2{
+        color: black;
+        font-family: 'JostSemiBold';
+        text-transform: uppercase;
+        font-size: 1.6rem;
+        &::after{
+            content: '';
+            width: 170px;
+            height: 5px;
+            background-color: $main-color;
+            display: block;
+        }
+    }
+}
