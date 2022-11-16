@@ -1,7 +1,6 @@
 const {dbCredentials}=require("../database/dbconfig")
 const {Pool}=require("pg");
 
-
 const  showFavorites=(req,res)=>{
     const pool = new Pool(dbCredentials);
     const user = 1;
@@ -34,8 +33,8 @@ const  showFavorites=(req,res)=>{
 
 //=============================================
 
-   const  addFavorite=(socket)=>{
-    socket.on("movies",(data)=>{
+   const  addFavorite=(id)=>{
+
         const pool = new Pool(dbCredentials);
         const Favorites=Object.values(data);
 
@@ -44,20 +43,19 @@ const  showFavorites=(req,res)=>{
                 const user =item.userid ;
                 const movieID = item.movieid;
 
-                pool.query("INSERT INTO  tbWatchList(idUser, idmovie, isFavorite) VALUES($1,$2,$3)", [user, movietID, true])
+                pool.query("CALL pAddFavoriteList($1, $2)",[user,movieID])
                 .then((result)=>result.rows)
-                 .then(()=> showFavorites())
+                 .then(()=> showFavorites(user))
                  .catch((err)=>console.log(err))
                  .finally(()=>pool.end);
             }
         })
 
-    })
     }
 
     
-    const  deleteFavorite=(socket)=>{
-        socket.on("delete",(data)=>{
+    const  deleteFavorite=(id)=>{
+
             console.log('deleted',data)
             const pool = new Pool(dbCredentials);
             const Favorites=Object.values(data);
@@ -66,15 +64,14 @@ const  showFavorites=(req,res)=>{
                 if(item.Favorite ===null){
                     console.log("deleting")
                     const FavoriteID = item.id 
-                    pool.query("UPDATE tbWatchList SET isFavorite = false , dtUpdate= current_date WHERE idWatchList= $1 ", [FavoriteID])
+                    pool.query("CALL pRemoveFavoriteList($1)",[FavoriteID])
                     .then((result)=>result.rows)
-                    .then(()=> showFavorites())
+                    .then(()=> showFavorites(user))
                     .catch((err)=>console.log(err))
                     .finally(()=>pool.end);
 
                 }
             })
-        })
         }
     
 

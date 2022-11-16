@@ -1,5 +1,7 @@
+ 
 const express=require("express");
 const router=express.Router();
+
 
 const{showFavorites,
     addFavorite,
@@ -8,6 +10,8 @@ const{showFavorites,
 
 
 router.get("/",showFavorites);
+router.post("/:id", addFavorite);
+router.post("/:id/delete", deleteFavorite);
 
 
 module.exports=router

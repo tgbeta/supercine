@@ -1,98 +1,79 @@
-CREATE or REPLACE FUNCTION GetUser(uID INTEGER,  uEmail VARCHAR(80))  
-RETURNS table (userName varchar(100)) AS
-$$
-BEGIN
-RETURN QUERY
- select nmUser as user 
- from tbuser where dsemail= uEmail or iduser = uID;
-END
-$$
-LANGUAGE plpgsql;
+--USER
+select * FROM getUser(0,'cleliamarcia@gmail.com')  -- by Email
+select * FROM getUser(4,'')                        -- by UserID
 
-
-select * FROM getUser(1,'cleliamarcia@gmail.com')
-select * FROM getUser(1,'')
-select * FROM getUser(0,'cleliamarcia@gmail.com')
-select * FROM getUser(2,null)
+-- INSERT A USER
+CALL pNewUser('teste3@email.com', 'Teste3', '2002-01-03')
+CALL pNewUser('cleliamarcia@gmail.com', 'Teste 2', '2022-01-02')
 
 --======================================================================================
-
-CREATE or REPLACE FUNCTION GetMovie(mID INTEGER,  title VARCHAR(100), genre varchar(60)) 
-RETURNS table (movieId integer, movie varchar(100)) AS
-$$
-BEGIN
-RETURN QUERY
- select distinct m.idMovie, dsTitle 
- from tbMovie m 
- 	left join tbMovieGenre mg on m.idmovie = mg.idmovie
-	left join tbGenre g on mg.idgenre = g.idgenre
- where m.idmovie = mID or dsTitle = title  or g.tpGenre = genre;
-END
-$$
-LANGUAGE plpgsql;
+--MOVIE 
+select * FROM getMovie(1,'' )              --byID
+select * FROM getMovie(0,'Gladiator')  	   --byTitle
 
 
-select * FROM GetMovie(1,'',null )  --byID
-select * FROM GetMovie(0,'Pinocchio',null)  --byTitle
-select * FROM GetMovie(0,'','Drama')  --byCategory
+select * FROM getMovieGenre(0,'Drama')     --all movies byCategory
+select * from getMovieGenre(6, '') ;       --all categories byMovie
+
+
+-- INSERT A MOVIE
+CALL pNewMovie('Gladiator', false, 'https:/api.themoviedb.org/3/movie/98')
+CALL pNewMovie('Teste2', true, 'https:/api.themoviedb.org/3/movie/1001')
+
+
+---INSERT MOVIE GENRES
+CALL pNewMovieGenre(6, 'Action')
+CALL pNewMovieGenre(6, 'Romance')
+
 
 
 --======================================================================================
 
-CREATE or REPLACE FUNCTION GetWatchList(uID INTEGER) 
-RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100)) AS
-$$
-BEGIN
-RETURN QUERY
- select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle 
- from tbUser u 
-     	inner join tbWatchList w on u.idUser = w.idUser
-        inner join tbMovie m on w.idmovie = m.idmovie 
-where u.idUser = uID and w.isWatched = false;
-END
-$$
-LANGUAGE plpgsql;
+--WATCH LIST
+
+select * from getWatchList(1)  ----by UserID
 
 
-select * from GetWatchList(1)  ----by UserID
+--INSERT WATCHLIST
+CALL pAddWatchList(1, 6)   --uID, mID
+
+
+--REMOVE WATCHLIST
+CALL pRemoveWatchlist(5)   --listID
+
+
+
+--======================================================================================
+--FAVORITE LIST
+
+select * from getFavoriteList(1) --by UserID
+
+
+--INSERT FAVORITE
+CALL pAddFavoriteList(1, 6)  --uID, mID
+
+--REMOVE FAVORITE
+CALL pRemoveFavoriteList(5)   --listID
+
 
 
 --======================================================================================
 
-CREATE or REPLACE FUNCTION GetFavoriteList(uID INTEGER) 
-RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100)) AS
-$$
-BEGIN
-RETURN QUERY
- select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle 
- from tbUser u 
-     	inner join tbWatchList w on u.idUser = w.idUser
-        inner join tbMovie m on w.idmovie = m.idmovie 
-where u.idUser = uID and w.isFavorite = true;
-END
-$$
-LANGUAGE plpgsql;
+--REVIEW
+
+select * from getReview(4)  --byMovieID
+
+--INSERT REVIEW
+CALL pAddReview(1, 1, 'I liked it', 3 )
 
 
-select * from GetFavoriteList(1) --by UserID
-
---======================================================================================
-
-CREATE or REPLACE FUNCTION GetReview(mID INTEGER) 
-RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100), review text, rating integer) AS
-$$
-BEGIN
-RETURN QUERY
- select r.idReview as id,  u.idUser, u.nmUser,  m.idMovie, m.dsTitle , dscomment as review, nrrate as rating
- from tbUser u 
-     	inner join tbReview r on u.idUser = r.idUser
-        inner join tbMovie m on r.idmovie = m.idmovie 
-where m.idMovie = mID;
-END
-$$
-LANGUAGE plpgsql;
+--REMOVE REVIEW
+CALL pRemoveReview(2)
 
 
 
-select * from GetReview(4)  --byMovieID
+
+
+
+
 

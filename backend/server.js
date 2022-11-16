@@ -1,24 +1,18 @@
+const FavoritesRoute = require('./routes/FavoritesRoute.js')
+const WatchListRoute = require('./routes/WatchListRoute.js')
+const ReviewsRoute = require('./routes/ReviewsRoute.js')
+
+
 const express = require("express");
 const { movieSearch } = require("./controllers/movies");
 require("dotenv").config();
 
 const cors = require('cors');
-// Require for the socket.io
 const http=require('http')
-const dbserver = http.createServer(app);
-const { Server } = require("socket.io");
-const io = new Server(dbserver);
-const{addFavorite,deleteFavorite}=require('./controllers/FavoritesController.js')
 
 
 const server = express();
-
 server.get("/search", movieSearch);
-
-server.listen(3001, () => console.log("server running on port 3001"));
-
-
-
 
 app.use(cors({
     origin:"*",
@@ -26,9 +20,17 @@ app.use(cors({
 }
 ))
 
+app.use(
+    '/favorites', FavoritesRoute
+)
 
-// Web sockets
+app.use(
+  '/watchlist', WatchListRoute
+)
 
-io.on("connection",addFavorite)
-io.on("connection",deleteFavorite)
+app.use(
+  '/reviews', ReviewsRoute
+)
 
+
+server.listen(3001, () => console.log("server running on port 3001"));
