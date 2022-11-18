@@ -1,7 +1,7 @@
 import React from "react";
 import AppMovie from "./components/AppMovie.jsx";
 import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/Home/Home.jsx";
 import List from "./components/List";
 import SearchList from "./components/SearchList";
 import Movie from "./components/Movie";
@@ -16,7 +16,7 @@ import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
-
+  console.log(isLogIn);
   return (
     <AppContext.Provider value={{ isLogIn, setIsLogIn }}>
       <BrowserRouter>
@@ -43,6 +43,7 @@ function App() {
         <NavBarAuth />
 
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/SearchList" element={<SearchList />} />
 
