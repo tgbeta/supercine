@@ -1,9 +1,8 @@
 //PAGINA COM OS RESULTADOS DE PESQUISA
 import axios from 'axios';
-import React, { useState } from 'react';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import MovieItemSearch from './MovieItemSearch.jsx';
+import MovieItemSearch from './Home/MovieItemSearch.jsx';
 
 export default function SearchList() {
     const location = useLocation(); 
@@ -19,7 +18,7 @@ export default function SearchList() {
     }
 
     useEffect(() => {
-        axios.get(`/search?movie=${movieSearchList}`).then((res) => {
+        axios.get(`/movies/search?movie=${movieSearchList}`).then((res) => {
             console.log(res.data);
             setMovies(res.data.results);
         });

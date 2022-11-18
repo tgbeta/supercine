@@ -13,8 +13,9 @@ const {
   addFavorite,
   deleteFavorite,
 } = require("./controllers/FavoritesController.js");
+const moviesRouter = require("./routes/movies.js");
 
-server.get("/search", movieSearch);
+//server.get("/search", movieSearch);
 
 server.use(
   cors({
@@ -22,6 +23,8 @@ server.use(
     credentials: true,
   })
 );
+
+server.use("/movies", moviesRouter);
 
 // Web sockets
 
