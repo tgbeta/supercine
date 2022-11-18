@@ -1,7 +1,7 @@
 import React from "react";
 import AppMovie from "./components/AppMovie.jsx";
 import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
-import Home from "./components/Home/Home";
+import Home from "./components/Home/Home.jsx";
 import List from "./components/List";
 import SearchList from "./components/SearchList";
 import Movie from "./components/Movie";
