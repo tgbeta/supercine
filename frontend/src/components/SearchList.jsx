@@ -2,6 +2,9 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
+import {BiCameraMovie, BiSearchAlt2} from "react-icons/bi";
+import "bootstrap/dist/css/bootstrap.min.css";
 import MovieItemSearch from './Home/MovieItemSearch.jsx';
 
 export default function SearchList() {
@@ -27,22 +30,35 @@ export default function SearchList() {
     
 
     return (
-        <section>
-                <div>
+            
+         <>         
+                <Container fluid className="header">
+                <Row>
+                    <Col>
                     <form onSubmit={handleSubmit}>
                         <h2 className='form-title'>Search Movie</h2>
                         <div className='movie-container'>
                             <input  maxLength={140} placeholder='What movie are you interested in?' className='movie-input' type="text" name="description" ref={searchRef} />
-                            <button className='search-btn' >Search</button>
+                            <button className='search-btn' ><BiSearchAlt2 /></button>
                         </div>
                     </form>
-                </div>
-                <div>
-                {          
-                    movies.length > 0 &&           
-                    movies.map(movie => <MovieItemSearch movie={movie}/>)
-                } 
-                </div>
-        </section>
+                    </Col>
+                </Row>
+               </Container>  
+                <Container fluid>
+                     <Row> 
+                        <Col xs={2} className="category-list">
+                            <h2>Category</h2>
+                        </Col>
+                        <Col xs={10}>
+                            {          
+                                movies.length > 0 &&           
+                                movies.map(movie => <MovieItemSearch movie={movie}/>)
+                            } 
+                        </Col>
+                    </Row>
+                    </Container>
+
+         </>  
     );
 }
