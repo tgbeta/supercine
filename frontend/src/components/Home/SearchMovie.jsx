@@ -39,12 +39,12 @@ export default function SearchMovie(props) {
                 <div className='movie-container'>
                     <input  maxLength={140} placeholder='What movie are you interested in?' className='movie-input' type="text" name="description" value={movieSearch} onChange={handleInputChange} />
 
-                    <select name="genderSelect" className='select-gender'>
+                    {/* <select name="genderSelect" className='select-gender'>
                         <option selected="selected" value="volvo">Find by Gender</option>
                         <option value="saab">Saab</option>
                         <option value="opel">Opel</option>
                         <option value="audi">Audi</option>
-                    </select>
+                    </select> */}
                     <button className='search-btn' ><BiSearchAlt2 /></button>
                 </div>
             </form>

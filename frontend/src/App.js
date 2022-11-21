@@ -1,7 +1,6 @@
 import React from "react";
-import AppMovie from "./components/AppMovie.jsx";
 import { BrowserRouter, Routes, Link, Route } from "react-router-dom";
-import Home from "./components/Home";
+import Home from "./components/Home/Home.jsx";
 import List from "./components/List";
 import SearchList from "./components/SearchList";
 import Movie from "./components/Movie";
@@ -10,39 +9,46 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/main.css";
 import logo from "./assets/logo.png";
 import Footer from './components/Footer';
+import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
+import { useState } from "react";
+import { AppContext } from "./components/NavBar/AppContext.jsx";
+import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
 
 function App() {
+  const [isLogIn, setIsLogIn] = useState(false);
+  console.log(isLogIn);
   return (
-    <BrowserRouter>
-      {/* <nav>
-        <Link to="/home">Home</Link>
-        <Link to="/list">List</Link>
-      </nav> */}
+    <AppContext.Provider value={{ isLogIn, setIsLogIn }}>
+      <BrowserRouter>
+        {/* <nav>
+            <Link to="/home">Home</Link>
+            <Link to="/list">List</Link>
+          </nav> */}
 
-      <Navbar expand="lg">
-        <Container fluid>
-          <Navbar.Brand href="/home">
-            <img src={logo} />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="/home">Home</Nav.Link>
-              <Nav.Link href="/list">My List</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+ 
+        <NavBarAuth />
 
-      <Routes>
-        <Route path="/home" element={<Home />} />
-        <Route path="/SearchList" element={<SearchList />} />
-        <Route path="/list" element={<List />} />
-        <Route path="/movie" element={<Movie />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/SearchList" element={<SearchList />} />
 
-      <Footer />
-    </BrowserRouter>
+          <Route
+            path="/list"
+            element={
+              <ProtectedRoute>
+                <List />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="/movie" element={<Movie />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </AppContext.Provider>
+
+
   );
 }
 
