@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Footer from "./Footer.jsx";
 
 
 export default function Home(props) {
@@ -72,19 +73,6 @@ export default function Home(props) {
                     </Col>
                 </Row>
             </Container>  
-
-            <Container fluid className="footer">
-                <Row>
-                    <Col>
-                        <ul>
-                            <li>Home</li>
-                            <li>About us</li>
-                            <li>Login</li>
-                            <li>My List</li>
-                        </ul>
-                    </Col>
-                </Row>
-            </Container>    
             </>  
 
             }

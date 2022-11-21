@@ -9,6 +9,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/main.css";
 import logo from "./assets/logo.png";
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/home">Home</Nav.Link>
-              <Nav.Link href="/list">Link</Nav.Link>
+              <Nav.Link href="/list">My List</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -39,6 +40,8 @@ function App() {
         <Route path="/list" element={<List />} />
         <Route path="/movie" element={<Movie />} />
       </Routes>
+
+      <Footer />
     </BrowserRouter>
   );
 }
