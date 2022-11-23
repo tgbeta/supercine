@@ -16,8 +16,6 @@ const movieSearch = (req, res) => {
 };
 
 const moviePopular = (req, res) => {
-  console.log(req.query);
-
   axios
     .get(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB}`
@@ -31,8 +29,6 @@ const moviePopular = (req, res) => {
 };
 
 const movieUpcoming = (req, res) => {
-  console.log(req.query);
-
   axios
     .get(
       `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB}`
@@ -45,4 +41,21 @@ const movieUpcoming = (req, res) => {
     });
 };
 
-module.exports = { movieSearch, moviePopular, movieUpcoming };
+const movieDetails = async (req, res) => {
+  console.log(req.body);
+  try {
+    const responseDetails = await axios.get(
+      `https://api.themoviedb.org/3/movie/${req.body.movieID}?api_key=${process.env.REACT_APP_TMDB}`
+    );
+    const responseTrailer = await axios.get(
+      `https://api.themoviedb.org/3/movie/${req.body.movieID}/videos?api_key=${process.env.REACT_APP_TMDB}`
+    );
+
+    console.log("genre", responseDetails.data);
+    console.log("trailer", responseTrailer.data);
+  } catch (err) {
+    console.log("err");
+  }
+};
+
+module.exports = { movieSearch, moviePopular, movieUpcoming, movieDetails };

@@ -8,7 +8,7 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/main.css";
 import logo from "./assets/logo.png";
-import Footer from './components/Footer';
+import Footer from "./components/Footer";
 import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
 import { useState } from "react";
 import { AppContext } from "./components/NavBar/AppContext.jsx";
@@ -25,7 +25,6 @@ function App() {
             <Link to="/list">List</Link>
           </nav> */}
 
- 
         <NavBarAuth />
 
         <Routes>
@@ -47,8 +46,6 @@ function App() {
         <Footer />
       </BrowserRouter>
     </AppContext.Provider>
-
-
   );
 }
 
