@@ -17,8 +17,11 @@ import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
   console.log(isLogIn);
+
+  const [user, setUser] = useState("User");
+
   return (
-    <AppContext.Provider value={{ isLogIn, setIsLogIn }}>
+    <AppContext.Provider value={{ isLogIn, setIsLogIn, user, setUser}}>
       <BrowserRouter>
         {/* <nav>
             <Link to="/home">Home</Link>

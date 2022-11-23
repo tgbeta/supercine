@@ -1,6 +1,7 @@
 //PAGINA DE DETALHES DO FILME
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
+import { AppContext } from './NavBar/AppContext';
 import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
 import Ratio from 'react-bootstrap/Ratio';
 import { BsHeart, BsTextareaT, BsBookmarks } from "react-icons/bs";
@@ -30,6 +31,19 @@ export default function Movie(props) {
 
         } 
     }
+    
+    const login = useContext(AppContext);
+    console.log("user",login.user)
+
+    const [comment, setComment] = useState("");
+    const [comments, setComments] = useState([]);
+
+    const onClickHandle = () => {
+        setComments((comments) => [...comments, comment])
+    }
+    const onChangeHandle = (e) => {
+        setComment(e.target.value);
+    }
 
     return (
         <>
@@ -49,7 +63,7 @@ export default function Movie(props) {
                     <p>In his second year of fighting crime, Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler.</p>
                     <button onClick={handleFavorite}><BsBookmarks /> Add To Watch List</button>
                     <button onClick={handleWatchList}><BsHeart /> Add To Favorites</button>
-                    <button onClick={handleWatchList}><BsTextareaT /> Write Your Reviwe</button>
+                    <a href="#write-review"><button><BsTextareaT /> Write Your Reviwe</button></a>
                 </Col>
             </Row>
         </Container>
@@ -70,22 +84,24 @@ export default function Movie(props) {
         <Container className="reviews">
             <Row>
                 <Col>
-                    <h2>write your Reviews</h2>
+                    <h2 id="write-review">write your Reviews</h2>
                     <form>
-                        <input type="text"></input><br></br>
-                        <input type="submit" value="Send"></input>
+                        <textarea value={comment} onChange={onChangeHandle} cols="30" rows="10"></textarea>
+                        <input onClick={onClickHandle} type="submit" value="Send"></input>
                     </form>
                 </Col>
             </Row>
             <Row>
                 <Col className="all-reviwes">
                     <h2>Reviews</h2>
-                    <div>
-                        <h3>Fulano de tal</h3>
-                        <p>
-                        Wealthy entrepreneur Bruce Wayne and his ward Dick Grayson lead a double life: they are actually crime fighting duo Batman and Robin. A secret Batpole in the Wayne mansion leads to the Batcave, where Police Commissioner Gordon often calls with the latest emergency threatening Gotham City. Racing to the scene of the crime in the Batmobile, Batman and Robin must (with the help of their trusty Bat-utility-belt) thwart the efforts of a variety of master criminals, including The Riddler, The Joker, Catwoman, and The Penguin.
-                        </p>
-                    </div>
+                        {comments.map((text) => (
+                        <div>
+                            <h3>{login.user}</h3>
+                            <p>
+                                {text}
+                            </p>
+                        </div>
+                        ))}
 
                 </Col>
             </Row>
