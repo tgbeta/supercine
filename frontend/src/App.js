@@ -4,6 +4,7 @@ import Home from "./components/Home/Home.jsx";
 import List from "./components/List";
 import SearchList from "./components/SearchList";
 import Movie from "./components/Movie";
+import AboutUs from "./components/AboutUs.jsx";
 import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/main.css";
@@ -17,8 +18,11 @@ import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
   console.log(isLogIn);
+
+  const [user, setUser] = useState("User");
+
   return (
-    <AppContext.Provider value={{ isLogIn, setIsLogIn }}>
+    <AppContext.Provider value={{ isLogIn, setIsLogIn, user, setUser }}>
       <BrowserRouter>
         {/* <nav>
             <Link to="/home">Home</Link>
@@ -31,7 +35,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/SearchList" element={<SearchList />} />
-
+          <Route path="/AboutUs" element={<AboutUs />} />
           <Route
             path="/list"
             element={

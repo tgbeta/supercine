@@ -15,7 +15,7 @@ import logo from "../../assets/logo.png";
 const provider = new GoogleAuthProvider();
 
 export default function NavBarAuth() {
-  const [user, setUser] = useState("User");
+  // const [user, setUser] = useState("User");
   const login = useContext(AppContext);
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function NavBarAuth() {
     signInWithPopup(auth, provider).then((result) => {
       console.log(result);
       login.setIsLogIn(true);
-      setUser(result.user.displayName);
+      login.setUser(result.user.displayName);
     });
   };
 
@@ -31,7 +31,7 @@ export default function NavBarAuth() {
     signOut(auth)
       .then(() => {
         alert("Log out");
-        setUser("User");
+        login.setUser("User");
         login.setIsLogIn(false);
       })
       .catch((error) => {

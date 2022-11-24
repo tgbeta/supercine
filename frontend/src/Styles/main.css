@@ -109,7 +109,8 @@
   background-image: url(../assets/bg-join-us.jpg);
   height: 40vh;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
+  background-attachment: fixed;
 }
 
 .join-us-box {
@@ -233,6 +234,20 @@
   margin-top: 20px;
 }
 
+.popular-upcoming {
+  margin-top: 30px;
+}
+.popular-upcoming .col-1 {
+  padding: 0;
+}
+.popular-upcoming p {
+  font-family: "JostSemiBold";
+  font-size: 1.2rem;
+  padding-top: 5px;
+  line-height: 1.3;
+  padding-right: 10px;
+}
+
 .header-movie-details {
   background-image: url(../assets/bg-cinema.png);
   height: 12vh;
@@ -310,15 +325,16 @@
   background-color: #F2CD36;
   display: block;
 }
-.reviews input {
+.reviews input, .reviews textarea {
   margin-top: 20px;
 }
-.reviews input[type=text] {
+.reviews input[type=text], .reviews textarea {
   border: none;
   width: 100%;
   background-color: #F3F3F3;
   height: 150px;
   padding: 10px;
+  outline: 0;
 }
 .reviews input[type=submit] {
   background-color: #F2CD36;
@@ -341,6 +357,7 @@
 }
 .all-reviwes P {
   font-family: "Jost300";
+  word-break: break-all;
 }
 
 .footer {
