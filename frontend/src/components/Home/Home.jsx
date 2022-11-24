@@ -58,19 +58,6 @@ export default function Home(props) {
                     </Col>
                 </Row>
             </Container>  
-
-            <Container fluid className="footer">
-                <Row>
-                    <Col>
-                        <ul>
-                            <li>Home</li>
-                            <li>About us</li>
-                            <li>Login</li>
-                            <li>My List</li>
-                        </ul>
-                    </Col>
-                </Row>
-            </Container>    
             </>  
 
             }

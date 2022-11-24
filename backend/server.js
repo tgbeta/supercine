@@ -17,6 +17,10 @@ const {
 } = require("./controllers/FavoritesController.js");
 const moviesRouter = require("./routes/movies.js");
 
+server.use(express.urlencoded({ extended: true }));
+
+server.use(express.json());
+
 server.use(
   cors({
     origin: "*",

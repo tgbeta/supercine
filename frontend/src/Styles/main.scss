@@ -1,10 +1,24 @@
 $main-color: #F2CD36;
+@mixin title-separator {
+    color: black;
+    font-family: 'JostSemiBold';
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    &::after{
+        content: '';
+        width: 170px;
+        height: 5px;
+        background-color: $main-color;
+        display: block;
+    }
+}
 
 @import "fonts";
 @import "nav";
 @import "header";
 @import "join-us";
 @import "movie-list";
+@import "movie-details";
 @import "footer";
 
 :hover, a{
