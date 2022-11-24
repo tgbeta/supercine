@@ -16,13 +16,20 @@ export default function Movie(props) {
   const location = useLocation();
   let movie = location.state.movieSearchDetails;
 
-  const [movieDetails, setMovieDetails] = useState(movie);
+  const [movieDetails, setMovieDetails] = useState({});
 
   useEffect(() => {
-    axios.post(`/movies/details`, { movieID: movie.id }).then((res) => {
-      setMovieDetails(res.data.results);
-    });
+    //console.log("here");
+    axios
+      .post(`/movies/details`, { movieID: movie.id })
+      .then((res) => {
+        setMovieDetails(res.data);
+        //console.log("res.data", res.data);
+      })
+      .catch((erro) => console.log(erro));
   }, []);
+
+  console.log("moviedetails aqui", movieDetails);
 
   const [favorite, setFavorite] = useState(false);
   const [watchList, setWatchList] = useState(false);
@@ -42,6 +49,10 @@ export default function Movie(props) {
     if (watchList == true) {
     }
   };
+  let genres = "";
+  if (movieDetails.genres) {
+    genres = movieDetails.genres.join(",");
+  }
 
   return (
     <>
@@ -57,11 +68,11 @@ export default function Movie(props) {
             />
           </Col>
           <Col xs={9}>
-            <h2>{movie.original_title}</h2>
-            <span>{movie.release_date}</span>
-            <span className="gender">Adventure, Comedy, Horror, Family</span>
+            <h2>{movieDetails.original_title}</h2>
+            <span>{movieDetails.release_date}</span>
+            <span className="gender">{genres}</span>
             <h3>Sinopse</h3>
-            <p>{movie.overview}</p>
+            <p>{movieDetails.overview}</p>
             <button onClick={handleFavorite}>
               <BsBookmarks /> Add To Watch List
             </button>
@@ -84,7 +95,7 @@ export default function Movie(props) {
                 <iframe
                   width="100%"
                   height="100%"
-                  src="https://www.youtube.com/embed/mqqft2x_Aa4?controls=0"
+                  src={movieDetails.trailer}
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
