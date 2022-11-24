@@ -1,35 +1,46 @@
 //PAGINA DE DETALHES DO FILME
 import axios from 'axios';
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { AppContext } from './NavBar/AppContext';
+import { useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
-import Ratio from 'react-bootstrap/Ratio';
-import { BsHeart, BsTextareaT, BsBookmarks } from "react-icons/bs";
+import Ratio from "react-bootstrap/Ratio";
+import {
+  BsHeart,
+  BsTextareaT,
+  BsBookmarks,
+  BsChevronDoubleLeft,
+} from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Movie(props) {
+  const location = useLocation();
+  let movie = location.state.movieSearchDetails;
 
-    const [favorite, setFavorite] = useState(false);
-    const [watchList, setWatchList] = useState(false);
+  const [movieDetails, setMovieDetails] = useState(movie);
 
-    const {movie} = props;
+  useEffect(() => {
+    axios.post(`/movies/details`, { movieID: movie.id }).then((res) => {
+      setMovieDetails(res.data.results);
+    });
+  }, []);
 
-    const handleFavorite = () => {
-        setFavorite(!favorite); // usar true e false para validacao da lista
+  const [favorite, setFavorite] = useState(false);
+  const [watchList, setWatchList] = useState(false);
 
-        if ( favorite == true) {
+  const handleFavorite = () => {
+    setFavorite(!favorite); // usar true e false para validacao da lista
 
-            //passar o conteudo de movies para o banco
-        } 
-        // dentro do controlle, fazer requisicao pra API, pra pegar as info do filme e depois saalvar no db
+    if (favorite == true) {
+      //passar o conteudo de movies para o banco
     }
+    // dentro do controlle, fazer requisicao pra API, pra pegar as info do filme e depois saalvar no db
+  };
 
-    const handleWatchList = () => {
-        setWatchList(!watchList);
+  const handleWatchList = () => {
+    setWatchList(!watchList);
 
-        if ( watchList == true) {
-
-        } 
+    if (watchList == true) {
     }
     
     const login = useContext(AppContext);
@@ -106,19 +117,6 @@ export default function Movie(props) {
                 </Col>
             </Row>
         </Container>
-
-        {/* <section>
-            <div className='movie-main' id={movie._id} key={movie._id}>
-                <img style={} src={} alt="" />
-                <p>Data do filme</p>
-                <p>Genero</p>
-                <p>Texto filme</p>
-                <button className='search-btn' onClick={handleFavorite}>Favorite</button>
-                <button className='search-btn' onClick={handleWatchList}>Watch List</button>
-                <button className='search-btn' onClick={handleWatchList}>Write Review</button>
-            </div>
-        </section> */}
-        </>   
-
-    );
-}
+    </>
+  );
+}}
