@@ -55,15 +55,16 @@
     h2{
         @include title-separator;
     }
-    input{
+    input, textarea{
         margin-top: 20px;
     }
-    input[type=text]{
+    input[type=text], textarea{
         border: none;
         width: 100%;
         background-color: #F3F3F3;
         height: 150px;
         padding: 10px;
+        outline: 0;
     }
     input[type=submit]{
         background-color: $main-color;
@@ -86,5 +87,6 @@
     }
     P{
         font-family: 'Jost300';
+        word-break: break-all;
     }
 }
