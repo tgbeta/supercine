@@ -440,7 +440,7 @@ BEGIN
      ReviewId = 1;
     
     ELSE
-	 ReviewId = ListId + 1;
+	 ReviewId = ReviewId + 1;
     END IF;
     
      insert into tbReview(idReview, idmovie, iduser, dscomment, nrrate, streview, dtinsert) 
@@ -466,7 +466,7 @@ BEGIN
         
 	UPDATE tbReview set  streview = false where idreview = rID;
 
-	RAISE NOTICE 'Movie removed from Review %', ReviewId;
+	RAISE NOTICE 'Movie removed from Review %', rID;
    END IF;
 
 END;
