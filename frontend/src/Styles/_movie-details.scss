@@ -1,0 +1,92 @@
+.header-movie-details{
+    background-image: url(../assets/bg-cinema.png);
+    height: 12vh;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center -140px;
+}
+
+.movie-details{
+    padding: 50px 0;
+    h2{
+        font-family: 'JostSemiBold';
+        margin: 0;
+    }
+    span{
+        font-size: 1.2rem;
+        color: #6A6A6A;
+        font-family: 'JostSemiBold';
+        display: block;
+    }
+    .gender{
+        color: #B28F00;
+    }
+    h3{
+        margin: 20px 0 0 0;
+        font-family: 'JostSemiBold';
+        font-size: 1.4rem;
+    }
+    button{
+        background-color: $main-color;
+        border: none;
+        font-size: 16px;
+
+        display: flex;
+        width: 170px;
+        height: 30px;
+        align-items: center;
+        margin: 3px 0;
+        justify-content: space-around;
+    }
+}
+
+.trailer{
+    background-color: black;
+    padding: 50px 100px;
+    h2{
+        @include title-separator;
+        color: white!important;
+    }
+}
+
+.reviews{
+    padding: 50px 0;
+    h2{
+        @include title-separator;
+    }
+    input, textarea{
+        margin-top: 20px;
+    }
+    input[type=text], textarea{
+        border: none;
+        width: 100%;
+        background-color: #F3F3F3;
+        height: 150px;
+        padding: 10px;
+        outline: 0;
+    }
+    input[type=submit]{
+        background-color: $main-color;
+        border: none;
+        text-transform: uppercase;
+        font-size: 16px;
+        padding: 10px 20px;
+        font-family: 'JostSemiBold';
+    }
+}
+
+.all-reviwes{
+    padding-top: 50px;
+    div{
+        padding: 20px 0;
+    }
+    h3{
+        font-family: 'JostSemiBold';
+        font-size: 1.3rem;
+    }
+    P{
+        font-family: 'Jost300';
+        word-break: break-all;
+    }
+}

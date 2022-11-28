@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MoviePopular from "./MoviePopular.jsx";
+import MovieUpcoming from "./MovieUpcoming.jsx";
 
 
 export default function Home(props) {
@@ -33,15 +35,7 @@ export default function Home(props) {
                 <Row>
                     <Col>
                         <h2>Popular Films - Top 10</h2>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
+                        <MoviePopular />
                     </Col>
                 </Row>
             </Container>       
@@ -60,31 +54,10 @@ export default function Home(props) {
                 <Row>
                     <Col>
                         <h2>Last Releases</h2>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
+                        <MovieUpcoming />
                     </Col>
                 </Row>
             </Container>  
-
-            <Container fluid className="footer">
-                <Row>
-                    <Col>
-                        <ul>
-                            <li>Home</li>
-                            <li>About us</li>
-                            <li>Login</li>
-                            <li>My List</li>
-                        </ul>
-                    </Col>
-                </Row>
-            </Container>    
             </>  
 
             }
