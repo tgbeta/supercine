@@ -50,6 +50,10 @@
   background-color: #F2CD36;
 }
 
+.navbar-collapse {
+  flex-grow: inherit;
+}
+
 .header {
   background-image: url(../assets/bg-cinema.png);
   height: 40vh;
@@ -358,6 +362,38 @@
 .all-reviwes P {
   font-family: "Jost300";
   word-break: break-all;
+}
+
+.about-us {
+  padding: 50px 0;
+}
+.about-us h2 {
+  color: black;
+  font-family: "JostSemiBold";
+  text-transform: uppercase;
+  font-size: 1.6rem;
+}
+.about-us h2::after {
+  content: "";
+  width: 170px;
+  height: 5px;
+  background-color: #F2CD36;
+  display: block;
+}
+.about-us h3 {
+  font-family: "JostMedium";
+  padding-top: 10px;
+  margin: 0;
+}
+.about-us span {
+  font-size: 30px;
+  color: black;
+}
+.about-us p {
+  margin: 0;
+}
+.about-us .row {
+  padding-top: 50px;
 }
 
 .footer {
