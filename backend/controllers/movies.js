@@ -79,4 +79,5 @@ const movieDetails = async (req, res) => {
   }
 };
 
+
 module.exports = { movieSearch, moviePopular, movieUpcoming, movieDetails };
