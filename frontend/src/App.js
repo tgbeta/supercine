@@ -11,9 +11,13 @@ import "./Styles/main.css";
 import logo from "./assets/logo.png";
 import Footer from "./components/Footer";
 import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppContext } from "./components/NavBar/AppContext.jsx";
 import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"; 
+import { auth } from "./firebase-config.js";
+
+const provider = new GoogleAuthProvider();
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
@@ -21,8 +25,40 @@ function App() {
 
   const [user, setUser] = useState("User");
 
+  const loginWithGoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      console.log(result);
+      setIsLogIn(true);
+      setUser(result.user.displayName);
+    });
+  };
+
+  const logoutWithGoogle = () => {
+    signOut(auth)
+      .then(() => {
+        alert("Log out");
+        setUser("User");
+        setIsLogIn(false);
+      })
+      .catch((error) => {
+        console.log("An error happened.");
+      });
+  };
+
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setIsLogIn(true);
+        console.log("logado", user);
+      } else {
+        setIsLogIn(false);
+        console.log("deslogado", user);
+      }
+    });
+  }, []);
+
   return (
-    <AppContext.Provider value={{ isLogIn, setIsLogIn, user, setUser }}>
+    <AppContext.Provider value={{ isLogIn, setIsLogIn, user, setUser, login:loginWithGoogle, logout:logoutWithGoogle }}>
       <BrowserRouter>
         {/* <nav>
             <Link to="/home">Home</Link>

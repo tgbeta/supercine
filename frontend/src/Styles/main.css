@@ -40,12 +40,15 @@
   padding: 0 100px;
 }
 
-.navbar-nav a {
+.navbar-nav button {
+  border: none;
+  background-color: transparent;
   color: #F2CD36;
   text-transform: uppercase;
   padding: 4px 20px;
+  transition: all 0.3s ease;
 }
-.navbar-nav a:hover {
+.navbar-nav button:hover {
   color: black;
   background-color: #F2CD36;
 }
@@ -161,6 +164,15 @@
   background-color: #F2CD36;
   display: block;
 }
+.movies-list .col-1 {
+  cursor: pointer;
+  transform: scale(1);
+  transition: all 0.5s ease;
+}
+.movies-list .col-1:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease;
+}
 
 .movie-main {
   padding: 20px 40px;
@@ -246,7 +258,7 @@
 }
 .popular-upcoming p {
   font-family: "JostSemiBold";
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding-top: 5px;
   line-height: 1.3;
   padding-right: 10px;
@@ -411,9 +423,17 @@
 }
 .footer ul li {
   display: inline-block;
-  margin: 0 40px;
+  margin: 0 20px;
   text-transform: uppercase;
   flex-wrap: wrap;
+}
+.footer ul li a {
+  padding: 4px 20px;
+  transition: all 0.3s ease;
+}
+.footer ul li a:hover {
+  color: black;
+  background-color: #F2CD36;
 }
 
 :hover, a {

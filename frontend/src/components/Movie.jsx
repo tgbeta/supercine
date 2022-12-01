@@ -2,7 +2,7 @@
 import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "./NavBar/AppContext";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
 import Ratio from "react-bootstrap/Ratio";
 import {
@@ -14,6 +14,7 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Movie(props) {
+const user = useContext(AppContext);
   const location = useLocation();
   let movie = location.state.movieSearchDetails;
 
@@ -53,6 +54,7 @@ export default function Movie(props) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   console.log("user", login.user);
+
 
   //Reviews
   const onClickHandle = (e) => {
@@ -94,9 +96,11 @@ export default function Movie(props) {
             <button onClick={handleWatchList}>
               <BsHeart /> Add To Favorites
             </button>
-            <button onClick={handleWatchList}>
-              <BsTextareaT /> Write Your Reviews
-            </button>
+               {!user.isLogIn ? (
+                <button onClick={() => user.login()}><BsTextareaT /> Write Your Reviews</button>
+              ) : (
+                  <Link href="#write-review"><button><BsTextareaT /> Write Your Reviews</button></Link>
+              )}
           </Col>
         </Row>
       </Container>

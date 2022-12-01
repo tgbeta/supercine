@@ -1,15 +1,17 @@
 //PAGINA PRINCIPAL
 import SearchMovie  from "./SearchMovie.jsx";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MoviePopular from "./MoviePopular.jsx";
 import MovieUpcoming from "./MovieUpcoming.jsx";
+import { AppContext } from "../NavBar/AppContext";
 
 
 export default function Home(props) {
+    const user = useContext(AppContext);
 
     const [movieSearch, setMovieSearch] = useState([]);
 
@@ -23,7 +25,6 @@ export default function Home(props) {
     return (
         <div>
             {
-                // <SearchMovie movieSearch={movieSearch} setMovieSearch={setMovieSearch}/>
             <>  
             <Container fluid className="header">
                 <Row>
@@ -45,7 +46,9 @@ export default function Home(props) {
                     <Col className="join-us-box">
                         <h2>What is your next movie?</h2>
                         <p>read and post movie reviews</p>
-                        <button>Join Us today</button>
+                        {!user.isLogIn && (
+                            <button onClick={() => user.login()}>Join Us today</button>
+                        )}
                     </Col>
                 </Row>
             </Container>    
