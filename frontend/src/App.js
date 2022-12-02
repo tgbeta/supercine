@@ -14,7 +14,7 @@ import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
 import { useEffect, useState } from "react";
 import { AppContext } from "./components/NavBar/AppContext.jsx";
 import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"; 
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth } from "./firebase-config.js";
 
 const provider = new GoogleAuthProvider();
@@ -23,7 +23,7 @@ function App() {
   const [isLogIn, setIsLogIn] = useState(false);
   console.log(isLogIn);
 
-  const [user, setUser] = useState("User");
+  const [user, setUser] = useState(null);
 
   const loginWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
@@ -37,7 +37,7 @@ function App() {
     signOut(auth)
       .then(() => {
         alert("Log out");
-        setUser("User");
+        setUser(null);
         setIsLogIn(false);
       })
       .catch((error) => {
@@ -49,6 +49,7 @@ function App() {
     auth.onAuthStateChanged(function (user) {
       if (user) {
         setIsLogIn(true);
+        setUser(user.displayName);
         console.log("logado", user);
       } else {
         setIsLogIn(false);
@@ -58,7 +59,16 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={{ isLogIn, setIsLogIn, user, setUser, login:loginWithGoogle, logout:logoutWithGoogle }}>
+    <AppContext.Provider
+      value={{
+        isLogIn,
+        setIsLogIn,
+        user,
+        setUser,
+        login: loginWithGoogle,
+        logout: logoutWithGoogle,
+      }}
+    >
       <BrowserRouter>
         {/* <nav>
             <Link to="/home">Home</Link>
@@ -81,7 +91,7 @@ function App() {
             }
           />
 
-          <Route path="/movie" element={<Movie />} />
+          <Route path="/Movie" element={<Movie />} />
         </Routes>
         <Footer />
       </BrowserRouter>
