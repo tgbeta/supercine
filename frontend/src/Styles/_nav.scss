@@ -6,10 +6,13 @@
 }
 
 .navbar-nav{
-    a{
+    button{
+        border: none;
+        background-color: transparent;
         color: $main-color;
         text-transform: uppercase;
         padding: 4px 20px;
+        transition: all 0.3s ease;
         &:hover{
             color: black;
             background-color: $main-color;

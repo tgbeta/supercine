@@ -2,9 +2,11 @@
 import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "./NavBar/AppContext";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
 import Ratio from "react-bootstrap/Ratio";
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import {
   BsHeart,
   BsTextareaT,
@@ -12,11 +14,19 @@ import {
   BsChevronDoubleLeft,
 } from "react-icons/bs";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Movie(props) {
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+const user = useContext(AppContext);
   const location = useLocation();
   let movie = location.state.movieSearchDetails;
-
+  const navigate = useNavigate()
   const [movieDetails, setMovieDetails] = useState({});
 
   useEffect(() => {
@@ -49,15 +59,21 @@ export default function Movie(props) {
     }
   };
 
-  const login = useContext(AppContext);
+  // const login = useContext(AppContext);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  console.log("user", login.user);
+  // console.log("user", user);
+
 
   //Reviews
   const onClickHandle = (e) => {
     e.preventDefault();
-    setComments((comments) => [...comments, comment]);
+    if(user.isLogIn){
+      setComments((comments) => [...comments, comment]);
+      setComment("");
+    }else{
+      user.login()
+    }
   };
   const onChangeHandle = (e) => {
     setComment(e.target.value);
@@ -68,7 +84,7 @@ export default function Movie(props) {
   if (movieDetails.genres) {
     genres = movieDetails.genres.join(",");
   }
-
+console.log("user", user)
   return (
     <>
       <Container fluid className="header-movie-details"></Container>
@@ -94,9 +110,38 @@ export default function Movie(props) {
             <button onClick={handleWatchList}>
               <BsHeart /> Add To Favorites
             </button>
-            <button onClick={handleWatchList}>
-              <BsTextareaT /> Write Your Reviews
-            </button>
+            {/* <Button variant="primary" onClick={handleShow}>
+        Launch demo modal
+            </Button> */}
+ 
+               {!user.isLogIn ? (
+                <button onClick={() => user.login()}><BsTextareaT /> Write Your Reviews</button>
+              ) : (
+                <button onClick={handleShow}><BsTextareaT /> Write Your Reviews</button>
+              )}
+
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+              </Modal.Header>
+              <Modal.Body>
+              <Container className="reviews">
+              <Row>
+          <Col>
+            <h2 id="write-review">write your Reviews</h2>
+            <form>
+              <textarea
+                value={comment}
+                onChange={onChangeHandle}
+                cols="30"
+                rows="10"
+                ></textarea>
+              <input onClick={(e) =>{onClickHandle(e); handleClose()}} type="submit" value="Send"></input>
+            </form>
+          </Col>
+        </Row>
+                </Container>
+              </Modal.Body>
+            </Modal>
           </Col>
         </Row>
       </Container>
@@ -142,7 +187,7 @@ export default function Movie(props) {
             <h2>Reviews</h2>
             {comments.map((text) => (
               <div>
-                <h3>{login.user}</h3>
+                <h3>{user.user}</h3>
                 <p>{text}</p>
               </div>
             ))}
