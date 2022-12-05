@@ -7,9 +7,9 @@ const{showReviews,
 }=require("../controllers/ReviewsController.js")
 
 
-router.get("/:mid",showReviews);
-router.post("/:mid", addReview);
-router.post("/:mid/delete", deleteReview);
+router.post("/",showReviews);
+router.post("/add", addReview);
+router.post("/delete", deleteReview);
 
 
 module.exports=router

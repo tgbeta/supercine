@@ -1,9 +1,12 @@
 --USER
 select * FROM getUser(0,'cleliamarcia@gmail.com')  -- by Email
-select * FROM getUser(4,'')                        -- by UserID
+select * FROM getUser(5,'')                        -- by UserID
+
+--RETURNS:   userid, username, useremail, userage
 
 -- INSERT A USER
-CALL pNewUser('teste3@email.com', 'Teste3', '2002-01-03')
+CALL pNewUser('teste4@email.com', 'Teste4')
+
 CALL pNewUser('cleliamarcia@gmail.com', 'Teste 2', '2022-01-02')
 
 --======================================================================================

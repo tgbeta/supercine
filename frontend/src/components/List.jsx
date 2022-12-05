@@ -1,14 +1,44 @@
-//PAGINA DE FAVORITOS E PEDENTES DE ASSISTIR
+//PAGINA DE FAVORITOS E PENDENTES DE ASSISTIR
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from "react";
+import { AppContext } from "./NavBar/AppContext";
 import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BsHeart, BsTrash } from "react-icons/bs";
 
 export default function FavoriteList(props) {
-    
+  const login = useContext(AppContext);
+  
+  const [favorites, setFavorites] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
+  
+  const showFavorites=(user) =>  {
+    axios.get(`/favorites/`, {userID: user})
+    .then((res) => {
+      console.log(res.data.results);
+    //  setFavorites(res.data.results);
+    });
+  
+  
+  }
+  
+  
+  const showWatchList=(user) =>  {
+    axios.get(`/watchlist/`, {userID: user})
+    .then((res) => {
+      console.log(res.data.results);
+     // setWatchlist(res.data.results);
+    });
+  
+  }
+  
 
-    return (
+showWatchList(login.user.userid);  //userid
+
+showFavorites(login.user.userid);
+
+
+ return (
 
         <>
             <Container fluid className="header-movie-details">

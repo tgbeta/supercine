@@ -3,29 +3,10 @@ const {Pool}=require("pg");
 
 const  showFavorites=(req,res)=>{
     const pool = new Pool(dbCredentials);
-    const user = 1;
+    const user = req.body.userID; 
 
     pool.query("select * from GetFavoriteList($1)", [user])
-    .then((result)=>result.rows)
-     .then(
-        (Favorites)=> {
-            const vFavorites = {}
-           
-            Favorites.forEach( Favorite =>{
-                     	vFavorites= {
-                    	id:      Favorite.id,
-	                	movieid: Favorite.movieid,
-				        movie:   Favorite.movie,
-                        userid:  Favorite.Userid,
-				        user:    Favorite.UserName,
-                    }
-            	
-            } )
-
-            res.json(vFavorites)
-    }
-    
-    )
+    .then((result)=>res.json(result.rows))
     .catch((err)=>console.log(err))
     .finally(()=>pool.end);
    }
@@ -33,49 +14,32 @@ const  showFavorites=(req,res)=>{
 
 //=============================================
 
-   const  addFavorite=(id)=>{
-
+   const  addFavorite=(req,res)=>{
         const pool = new Pool(dbCredentials);
-        const Favorites=Object.values(data);
+        const user    = req.body.userID ;
+        const movieID = req.body.movieID;
 
-        Favorites.forEach((item)=>{
-            if(item.Favorite != undefined){
-                const user =item.userid ;
-                const movieID = item.movieid;
-
-                pool.query("CALL pAddFavoriteList($1, $2)",[user,movieID])
-                .then((result)=>result.rows)
-                 .then(()=> showFavorites(user))
-                 .catch((err)=>console.log(err))
-                 .finally(()=>pool.end);
-            }
-        })
-
+        pool.query("CALL pAddFavoriteList($1, $2)",[user,movieID])
+            .then((result)=>result.rows)
+            .then(()=> showFavorites(req,res))
+            .catch((err)=>console.log(err))
+            .finally(()=>pool.end);
+        
     }
 
     
-    const  deleteFavorite=(id)=>{
-
-            console.log('deleted',data)
+    const  deleteFavorite=(req,res)=>{
+            console.log('deleted from Favorites',data)
             const pool = new Pool(dbCredentials);
-            const Favorites=Object.values(data);
+            const favoriteid  = req.body.favoriteID ;
 
-            Favorites.forEach((item)=>{
-                if(item.Favorite ===null){
-                    console.log("deleting")
-                    const FavoriteID = item.id 
-                    pool.query("CALL pRemoveFavoriteList($1)",[FavoriteID])
-                    .then((result)=>result.rows)
-                    .then(()=> showFavorites(user))
-                    .catch((err)=>console.log(err))
-                    .finally(()=>pool.end);
-
-                }
-            })
+            pool.query("CALL pRemoveFavoriteList($1)",[favoriteid])
+                .then((result)=>result.rows)
+                .then(()=> showFavorites(req,res))
+                .catch((err)=>console.log(err))
+                .finally(()=>pool.end);
         }
     
-
-
     
 //=============================================
 

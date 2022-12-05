@@ -7,8 +7,8 @@ const {
   deleteWatchList,
 } = require("../controllers/WatchListController.js");
 
-router.get("/", showWatchList);
-router.post("/:id", addWatchList);
-router.post("/:id/delete", deleteWatchList);
+router.post("/", showWatchList);
+router.post("/add", addWatchList);
+router.post("/delete", deleteWatchList);
 
 module.exports = router;
