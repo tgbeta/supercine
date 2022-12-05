@@ -1,16 +1,15 @@
 const {dbCredentials}=require("../database/dbconfig")
 const {Pool}=require("pg");
 
-
 const  showMovies=(req,res)=>{
     const pool = new Pool(dbCredentials);
-    const mtitle = 'Gladiator';
+    const mtitle = req.body.movieTitle ;
 
     pool.query("select * from getMovie(0, $1)", [mtitle])
     .then((result)=>result.rows)
      .then(
         (Movies)=> {
-            const vMovies = {}
+            let vMovies = {}
            
             Movies.forEach( Movie =>{
                     vMovies= {
@@ -34,13 +33,13 @@ const  showMovies=(req,res)=>{
 
 const  showMoviesGenre=(req,res)=>{
     const pool = new Pool(dbCredentials);
-    const movieID = 1;
+    const movieID = req.body.movieID;
 
     pool.query("select * from getMovieGenre($1,'')", [movieID])
     .then((result)=>result.rows)
      .then(
         (MoviesGenre)=> {
-            const vMoviesGenre = {}
+            let vMoviesGenre = {}
            
             MoviesGenre.forEach( MoviesGenre =>{
                 vMoviesGenre= {
@@ -59,46 +58,32 @@ const  showMoviesGenre=(req,res)=>{
 
 //=============================================
 
-
-   const  addMovie=(id)=>{
+   const  addMovie=(req,res)=>{
 
         const pool = new Pool(dbCredentials);
-        const Movies=Object.values(data);
+        const mtitle  = req.body.movieTitle ;
+        const mapikey = req.body.movieapiID;
+        const madult  = req.body.adult;
 
-        Movies.forEach((item)=>{
-            if(item.title != undefined){
-                const mtitle =item.title ;
-                const mapikey = item.apikey;
-                const madult = item.adult;
-
-                pool.query("CALL pNewMovie($1, $2, $3)",[mtitle,madult, mapikey])
-                .then((result)=>result.rows)
-                 .then(()=> showMovies(mtitle))
-                 .catch((err)=>console.log(err))
-                 .finally(()=>pool.end);
-            }
-        })
-
-    }
+        pool.query("CALL pNewMovie($1, $2, $3)",[mtitle,madult, mapikey])
+           .then((result)=>result.rows)
+           .then(()=> showMovies(req,res))
+           .catch((err)=>console.log(err))
+           .finally(()=>pool.end);
+     }
     
 //=============================================
 
-const  addMovieGenre=(id)=>{
+const  addMovieGenre=(req,res)=>{
     const pool = new Pool(dbCredentials);
-    const MoviesGenre=Object.values(data);
+    const movieID =req.body.movieID ;
+    const mgenre = req.body.genre;
 
-    MoviesGenre.forEach((item)=>{
-        if(item.movieID != undefined){
-            const movieID =item.movieID ;
-            const mgenre = item.genre;
-
-            pool.query("CALL pNewMovieGenre($1, $2)",[movieID,mgenre])
+    pool.query("CALL pNewMovieGenre($1, $2)",[movieID,mgenre])
             .then((result)=>result.rows)
-             .then(()=> showMoviesGenre(movieID))
+             .then(()=> showMoviesGenre(req,res))
              .catch((err)=>console.log(err))
              .finally(()=>pool.end);
-        }
-    })
 
 }
 

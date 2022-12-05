@@ -9,9 +9,9 @@ const{showFavorites,
 }=require("../controllers/FavoritesController.js")
 
 
-router.get("/",showFavorites);
-router.post("/:id", addFavorite);
-router.post("/:id/delete", deleteFavorite);
+router.post("/",showFavorites);
+router.post("/add", addFavorite);
+router.post("/delete", deleteFavorite);
 
 
 module.exports=router

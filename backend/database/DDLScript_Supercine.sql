@@ -88,19 +88,21 @@ stReview boolean NOT NULL
 ---FUNCTIONS==============================================================================================
 
 CREATE or REPLACE FUNCTION GetUser(uID INTEGER,  uEmail VARCHAR(80))  
-RETURNS table (userId integer, userName varchar(100)) AS
+RETURNS table (userId integer, userName varchar(100), userEmail varchar(100), userAge integer) AS
 $$
 BEGIN
 RETURN QUERY
- select iduser, nmUser 
+ select iduser, nmUser , dsEmail,  
+  COALESCE(cast( date_part('year', CURRENT_DATE) as integer) - cast(date_part('year', dtbirth) as integer), 18)
  from tbuser where dsemail= uEmail or iduser = uID;
 END
 $$
 LANGUAGE plpgsql;
 
 
---========================================================================
 
+
+--========================================================================
 
 CREATE or REPLACE FUNCTION GetMovie(mID INTEGER,  title VARCHAR(100)) 
 RETURNS table (movieId integer, movie varchar(100), mapikey varchar(100) ) AS
@@ -190,10 +192,9 @@ LANGUAGE plpgsql;
 
 
 
-
 ---PROCEDURES============================================================================================
 
-CREATE OR REPLACE PROCEDURE pNewUser(uemail varchar(100), uname varchar(100), ubirth date)
+CREATE OR REPLACE PROCEDURE pNewUser(uemail varchar(100), uname varchar(100), ubirth date default null)
 AS
 $$
 DECLARE
