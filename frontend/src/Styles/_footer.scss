@@ -11,9 +11,16 @@
         margin: 0;
         li{
             display: inline-block;
-            margin:  0 40px;
+            margin:  0 20px;
             text-transform: uppercase;
             flex-wrap: wrap;
-        }
+            a{
+                padding: 4px 20px;
+                transition: all 0.3s ease;
+                &:hover{
+                    color: black;
+                    background-color: $main-color;
+                }
+        }   }
     }
 }

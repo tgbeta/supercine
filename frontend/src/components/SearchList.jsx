@@ -51,12 +51,12 @@ export default function SearchList() {
           </Col>
         </Row>
       </Container>
-      <Container fluid>
+      <Container>
         <Row>
-          <Col xs={2} className="category-list">
+          {/* <Col xs={2} className="category-list">
             <h2>Category</h2>
-          </Col>
-          <Col xs={10}>
+          </Col> */}
+          <Col xs={12}>
             {movies.length > 0 &&
               movies.map((movie) => <MovieItemSearch movie={movie} />)}
           </Col>

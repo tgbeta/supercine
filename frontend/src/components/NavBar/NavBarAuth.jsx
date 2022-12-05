@@ -7,17 +7,13 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth"; //aqui nao deveria ser postgres
 import { AppContext } from "./AppContext";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { auth } from "../../firebase-config.js";
 import logo from "../../assets/logo.png";
-
-const provider = new GoogleAuthProvider();
 
 export default function NavBarAuth() {
   // const [user, setUser] = useState("User");
-  const login = useContext(AppContext);
+  const user = useContext(AppContext);
   const navigate = useNavigate();
 
   const loginWithGoogle = () => {
@@ -73,14 +69,12 @@ export default function NavBarAuth() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              {/* <Nav.Link href="/home">Home</Nav.Link> */}
               <button onClick={() => navigate("/home")}>Home</button>
               <button onClick={() => navigate("/list")}>List</button>
-              {/* <Nav.Link href="/list">Lists</Nav.Link> */}
-              {!login.isLogIn ? (
-                <button onClick={() => loginWithGoogle()}>LogIn</button>
+              {!user.isLogIn ? (
+                <button onClick={() => user.login()}>LogIn</button>
               ) : (
-                <button onClick={() => logoutWithGoogle()}>LogOut</button>
+                <button onClick={() => user.logout()}>LogOut</button>
               )}
             </Nav>
           </Navbar.Collapse>
