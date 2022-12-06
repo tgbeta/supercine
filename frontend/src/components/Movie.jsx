@@ -34,7 +34,7 @@ const user = useContext(AppContext);
     // Movie DB
     const addMovieDB = (movieapi) => {
       axios
-      .post(`/moviesdb`, {movieTitle: movie.original_title,  movieapiID: movie.id , adult: movie.adult})
+      .post(`/moviesdb`, {movieTitle: movie.original_title,  movieapiID: movie.id , adult: movie.adult,  posterpath: movie.poster_path,  trailerlink: movie.trailer, dtreleased: movie.release_date})
       .then((res) => {
         console.log('new movie:',res.data);
         setMovieDetails({...movieapi, movieDB: res.data.movieid});  // getmovieid by title
@@ -134,7 +134,6 @@ const handleReview = () => {
     e.preventDefault();
 
     if(user.isLogIn){
-
       // insert Review by movieid, userid, comment, rate
       axios
       .post(`/reviews/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB, review: comment, rate: 5})
@@ -143,8 +142,6 @@ const handleReview = () => {
       })
       .catch((erro) => console.log(erro));
 
-
-  
       setComments((comments) => [...comments, comment]);
       setComment("");
     }else{
