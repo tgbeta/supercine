@@ -13,9 +13,12 @@ const  showMovies=(req,res)=>{
            
             Movies.forEach( Movie =>{
                     vMovies= {
-                    	movieid:   Movie.movieid,
-	                	title:     Movie.movie,		
-                        apiKey:    Movie.mapikey,
+                    	movieid:     Movie.movieid,
+	                	title:       Movie.movie,		
+                        apiKey:      Movie.mapikey,
+                        posterpath:  Movie.mposterpath, 
+                        trailerlink: Movie.mtrailerlink,
+                        dtreleased:  Movie.mdtreleased,
                         genres:    [],
                     }
             	
@@ -64,8 +67,11 @@ const  showMoviesGenre=(req,res)=>{
         const mtitle  = req.body.movieTitle ;
         const mapikey = req.body.movieapiID;
         const madult  = req.body.adult;
+        const mposterpath =  req.body.posterpath; 
+        const mtrailerlink = req.body.trailerlink;
+        const mdtreleased =  req.body.dtreleased;
 
-        pool.query("CALL pNewMovie($1, $2, $3)",[mtitle,madult, mapikey])
+        pool.query("CALL pNewMovie($1, $2, $3, $4, $5, $6)",[mtitle,madult, mapikey, mposterpath, mtrailerlink, mdtreleased])
            .then((result)=>result.rows)
            .then(()=> showMovies(req,res))
            .catch((err)=>console.log(err))

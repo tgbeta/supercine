@@ -14,10 +14,6 @@ import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
 import { useEffect, useState } from "react";
 import { AppContext } from "./components/NavBar/AppContext.jsx";
 import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
-import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { auth } from "./firebase-config.js";
-
-const provider = new GoogleAuthProvider();
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
