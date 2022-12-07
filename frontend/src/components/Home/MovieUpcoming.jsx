@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
-import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +30,7 @@ export default function MovieUpcoming() {
           <Container fluid className="popular-upcoming">
             <Row className="justify-content-between">      
             {                   
-                    movies.map(movie => <Col xs={1} onClick={(event) => handleMovieOnClick(event, movie)}>
+                    movies.map(movie => <Col xs={6} md={3} xl={1} className="col-pointer" onClick={(event) => handleMovieOnClick(event, movie)}>
                         <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} className="img-fluid" alt="" />
                         <p>{movie.original_title}</p>
                         </Col> )

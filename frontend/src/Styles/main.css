@@ -57,6 +57,16 @@
   flex-grow: inherit;
 }
 
+.navbar-toggler {
+  background-color: #F2CD36;
+}
+
+@media (max-width: 575.98px) {
+  .navbar-brand img {
+    max-width: 130px;
+  }
+}
+
 .header {
   background-image: url(../assets/bg-cinema.png);
   height: 40vh;
@@ -76,8 +86,17 @@
   text-transform: uppercase;
 }
 .header h2 {
-  font-size: 2.5rem;
   margin: 0;
+}
+@media (min-width: 200px) {
+  .header h2 {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .header h2 {
+    font-size: 2.5rem;
+  }
 }
 .header p {
   font-size: 1.2rem;
@@ -93,12 +112,33 @@
   text-transform: uppercase;
   margin-right: 8px;
 }
+@media (min-width: 200px) {
+  .movie-input {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .movie-input {
+    width: 620px;
+  }
+}
 
 .search-btn {
   background-color: #F2CD36;
   border: none;
   padding: 0px 10px 4px 10px;
   font-size: 22px;
+}
+@media (min-width: 200px) {
+  .search-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+@media (min-width: 768px) {
+  .search-btn {
+    width: inherit;
+  }
 }
 
 .select-gender {
@@ -131,8 +171,17 @@
   color: white;
 }
 .join-us-box h2 {
-  font-size: 3.5rem;
   margin: 0;
+}
+@media (min-width: 200px) {
+  .join-us-box h2 {
+    font-size: 1.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .join-us-box h2 {
+    font-size: 3.5rem;
+  }
 }
 .join-us-box p {
   font-size: 1.6rem;
@@ -164,12 +213,12 @@
   background-color: #F2CD36;
   display: block;
 }
-.movies-list .col-1 {
+.movies-list .col-pointer {
   cursor: pointer;
   transform: scale(1);
   transition: all 0.5s ease;
 }
-.movies-list .col-1:hover {
+.movies-list .col-pointer:hover {
   transform: scale(1.1);
   transition: all 0.5s ease;
 }
@@ -253,8 +302,10 @@
 .popular-upcoming {
   margin-top: 30px;
 }
-.popular-upcoming .col-1 {
-  padding: 0;
+@media (min-width: 1200px) {
+  .popular-upcoming .col-xl-1 {
+    padding: 0;
+  }
 }
 .popular-upcoming p {
   font-family: "JostSemiBold";
@@ -418,8 +469,21 @@
   justify-content: center;
   font-family: "JostSemiBold";
 }
+@media (max-width: 575.98px) {
+  .footer {
+    height: inherit;
+  }
+}
 .footer ul {
   margin: 0;
+}
+@media (max-width: 575.98px) {
+  .footer ul {
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 }
 .footer ul li {
   display: inline-block;
@@ -439,4 +503,4 @@
 :hover, a {
   transition: all 0.3s ease;
   text-decoration: none;
-}/*# sourceMappingURL=main.css.map */
+}
