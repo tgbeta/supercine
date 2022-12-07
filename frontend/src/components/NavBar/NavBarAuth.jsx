@@ -10,17 +10,17 @@ import {
 import { AppContext } from "./AppContext";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import logo from "../../assets/logo.png";
-
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { auth } from "./firebase-config.js";
+import { auth } from "../../firebase-config";
 
 const provider = new GoogleAuthProvider();
-
 
 export default function NavBarAuth() {
   // const [user, setUser] = useState("User");
   const user = useContext(AppContext);
   const navigate = useNavigate();
+
+  const login = useContext(AppContext);
 
   const loginWithGoogle = () => {
     signInWithPopup(auth, provider).then((result) => {
