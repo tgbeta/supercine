@@ -14,6 +14,11 @@ import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
 import { useEffect, useState } from "react";
 import { AppContext } from "./components/NavBar/AppContext.jsx";
 import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { auth } from "./firebase-config.js";
+import axios from "axios";
+
+const provider = new GoogleAuthProvider();
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
@@ -44,9 +49,15 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged(function (user) {
       if (user) {
-        setIsLogIn(true);
-        setUser(user.displayName);
-        console.log("logado", user);
+        //Add new user to Database;
+        axios
+          .post(`/users`, { userEmail: user.email, userName: user.displayName })
+          .then((res) => {
+            setUser(res.data);
+            console.log("logado", res.data);
+            setIsLogIn(true);
+          })
+          .catch((erro) => console.log(erro));
       } else {
         setIsLogIn(false);
         console.log("deslogado", user);
