@@ -3,21 +3,22 @@ const {Pool}=require("pg");
 
 const  showUsers=(req,res)=>{
     const pool = new Pool(dbCredentials);
-    const userEmail = 'cleliamarcia@gmail.com';
+    const userEmail = req.body.userEmail;   
 
     pool.query("select * from getUser(0, $1)", [userEmail])
     .then((result)=>result.rows)
      .then(
         (Users)=> {
-            const vUsers = {}
+            let vUsers = {}
            
             Users.forEach( User =>{
                      	vUsers= {
-                    	userid:   User.userid,
-	                	username: User.username,				        
+                    	userid:    User.userid,
+	                	username:  User.username,
+                        useremail: User.useremail, 
+                        userage:   User.userage,				        
                     }
-            	
-            } )
+                 } )
 
             res.json(vUsers)
     }
@@ -30,30 +31,21 @@ const  showUsers=(req,res)=>{
 
 //=============================================
 
-   const  addUser=(id)=>{
+   const  addUser=(req,res)=>{
 
         const pool = new Pool(dbCredentials);
-        const Users=Object.values(data);
+        const userEmail = req.body.userEmail;   
+        const userName = req.body.userName;   
 
-        Users.forEach((item)=>{
-            if(item.User != undefined){
-                const uemail =item.useremail ;
-                const uname = item.username;
-                const ubirth = item.dtbirth;
-
-                pool.query("CALL pNewUser($1, $2, $3)",[uemail,uname, ubirth])
+        pool.query("CALL pNewUser($1, $2)",[userEmail, userName])
                 .then((result)=>result.rows)
-                 .then(()=> showUsers(uemail))
+                 .then(()=> showUsers(req,res))
                  .catch((err)=>console.log(err))
                  .finally(()=>pool.end);
-            }
-        })
-
     }
 
     
 //=============================================
-
     module.exports={
         showUsers,
         addUser,

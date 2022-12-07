@@ -3,29 +3,10 @@ const {Pool}=require("pg");
 
 const  showWatchList=(req,res)=>{
     const pool = new Pool(dbCredentials);
-    const user = 1;
+    const user    = req.body.userID ;
 
     pool.query("select * from GetWatchList($1)", [user])
-    .then((result)=>result.rows)
-     .then(
-        (WatchLists)=> {
-            const vWatchList = {}
-           
-            WatchLists.forEach( Watchlist =>{
-                        vWatchList= {
-                    	id:      Watchlist.id,
-	                	movieid: Watchlist.movieid,
-				        movie:   Watchlist.movie,
-                        userid:  Watchlist.Userid,
-				        user:    Watchlist.UserName,
-                    }
-            	
-            } )
-
-            res.json(vWatchList)
-    }
-    
-    )
+    .then((result)=>res.json(result.rows))
     .catch((err)=>console.log(err))
     .finally(()=>pool.end);
    }
@@ -33,45 +14,33 @@ const  showWatchList=(req,res)=>{
 
 //=============================================
 
-   const  addWatchlist=(id)=>{
-
+   const  addWatchList=(req,res)=>{
         const pool = new Pool(dbCredentials);
-        const Watchlists=Object.values(data);
+        const user    = req.body.userID ;
+        const movieID = req.body.movieID;
+       // console.log('teste w', req.body)    ;
 
-        Watchlists.forEach((item)=>{
-            if(item.Watchlist != undefined){
-                const user =item.userid ;
-                const movieID = item.movieid;
-
-                pool.query("CALL pAddWatchList($1, $2)",[user,movieID])
+         pool.query("CALL pAddWatchList($1, $2)",[user,movieID])
                 .then((result)=>result.rows)
-                 .then(()=> showWatchList(user))
-                 .catch((err)=>console.log(err))
-                 .finally(()=>pool.end);
-            }
-        })
-
+                .then(()=> showWatchList(req,res))
+                .catch((err)=>console.log(err))
+                .finally(()=>pool.end);
+        
     }
 
     
-    const  deleteWatchlist=(id)=>{
+    const  deleteWatchList=(req,res)=>{
 
-            console.log('deleted',data)
+            console.log('deleted from Watchlist',data)
             const pool = new Pool(dbCredentials);
-            const Watchlists=Object.values(data);
+            const watchlistid    = req.body.watchlistID ;
 
-            Watchlists.forEach((item)=>{
-                if(item.Watchlist ===null){
-                    console.log("deleting")
-                    const WatchlistID = item.id 
-                    pool.query("CALL pRemoveWatchlist($1)",[WatchlistID])
-                    .then((result)=>result.rows)
-                    .then(()=> showWatchlist(user))
-                    .catch((err)=>console.log(err))
-                    .finally(()=>pool.end);
+            pool.query("CALL pRemoveWatchlist($1)",[watchlistid])
+             .then((result)=>result.rows)
+             .then(()=> showWatchlist(req,res))
+             .catch((err)=>console.log(err))
+             .finally(()=>pool.end);
 
-                }
-            })
         }
     
 
@@ -81,8 +50,8 @@ const  showWatchList=(req,res)=>{
 
     module.exports={
         showWatchList,
-        addWatchlist,
-        deleteWatchlist,
+        addWatchList,
+        deleteWatchList,
     }
 
 

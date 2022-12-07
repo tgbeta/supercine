@@ -1,9 +1,12 @@
 --USER
 select * FROM getUser(0,'cleliamarcia@gmail.com')  -- by Email
-select * FROM getUser(4,'')                        -- by UserID
+select * FROM getUser(5,'')                        -- by UserID
+
+--RETURNS:   userid, username, useremail, userage
 
 -- INSERT A USER
-CALL pNewUser('teste3@email.com', 'Teste3', '2002-01-03')
+CALL pNewUser('teste4@email.com', 'Teste4')
+
 CALL pNewUser('cleliamarcia@gmail.com', 'Teste 2', '2022-01-02')
 
 --======================================================================================
@@ -17,9 +20,8 @@ select * from getMovieGenre(6, '') ;       --all categories byMovie
 
 
 -- INSERT A MOVIE
-CALL pNewMovie('Gladiator', false, 'https:/api.themoviedb.org/3/movie/98')
-CALL pNewMovie('Teste2', true, 'https:/api.themoviedb.org/3/movie/1001')
-
+CALL pNewMovie('Gladiator', false, '98','https://www.themoviedb.org/t/p/w220_and_h330_face/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg','https://www.themoviedb.org/video/play?key=TcYIqlBihW4', '2000-05-05'  )
+CALL pNewMovie('Teste2', true, '1001','teste','teste','01/01/2001')
 
 ---INSERT MOVIE GENRES
 CALL pNewMovieGenre(6, 'Action')
@@ -40,7 +42,6 @@ CALL pAddWatchList(1, 6)   --uID, mID
 
 --REMOVE WATCHLIST
 CALL pRemoveWatchlist(5)   --listID
-
 
 
 --======================================================================================

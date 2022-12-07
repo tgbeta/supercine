@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import {
   BrowserRouter,
@@ -9,11 +10,60 @@ import {
 import { AppContext } from "./AppContext";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import logo from "../../assets/logo.png";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { auth } from "../../firebase-config";
+
+const provider = new GoogleAuthProvider();
 
 export default function NavBarAuth() {
   // const [user, setUser] = useState("User");
   const user = useContext(AppContext);
   const navigate = useNavigate();
+
+  const login = useContext(AppContext);
+
+  const loginWithGoogle = () => {
+    signInWithPopup(auth, provider).then((result) => {
+      console.log(result.user);
+      login.setIsLogIn(true);
+      login.setUser(result.user.displayName);
+    });
+  };
+
+  const logoutWithGoogle = () => {
+    signOut(auth)
+      .then(() => {
+        alert("Log out");
+        login.setUser("User");
+        login.setIsLogIn(false);
+      })
+      .catch((error) => {
+        console.log("An error happened.");
+      });
+  };
+
+  const [userDetails, setUserDetails] = useState({});
+
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        login.setIsLogIn(true);
+
+        //Add new user to Database;
+        axios
+        .post(`/users`, {userEmail: user.email, userName: user.displayName})
+        .then((res) => {
+          login.setUser(res.data);
+          console.log("logado", res.data);
+        })
+        .catch((erro) => console.log(erro));
+
+      } else {
+        login.setIsLogIn(false);
+        console.log("deslogado", user);
+      }
+    });
+  }, []);
 
   return (
     <div>

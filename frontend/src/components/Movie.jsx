@@ -27,47 +27,119 @@ const user = useContext(AppContext);
   let movie = location.state.movieSearchDetails;
   const navigate = useNavigate()
   const [movieDetails, setMovieDetails] = useState({});
+  
+  const login = useContext(AppContext);
+
+    // Movie DB
+    const addMovieDB = (movieapi) => {
+      axios
+      .post(`/moviesdb`, {movieTitle: movie.original_title,  movieapiID: movie.id , adult: movie.adult,  posterpath: movie.poster_path,  trailerlink: movie.trailer, dtreleased: movie.release_date})
+      .then((res) => {
+        console.log('new movie:',res.data);
+        setMovieDetails({...movieapi, movieDB: res.data.movieid});  // getmovieid by title
+        ListReview(res.data.movieid);     
+      })
+      .catch((erro) => console.log(erro));
+
+      // insert movie genres
+
+    };
+
 
   useEffect(() => {
     axios
       .post(`/movies/details`, { movieID: movie.id })
       .then((res) => {
         setMovieDetails(res.data);
+        addMovieDB(res.data);  //insert new movie detailed to DB
       })
       .catch((erro) => console.log(erro));
   }, []);
 
+
   const [favorite, setFavorite] = useState(false);
   const [watchList, setWatchList] = useState(false);
-
-  //Favorites
-  const handleFavorite = () => {
-    setFavorite(!favorite); // usar true e false para validacao da lista
-
-    if (favorite === true) {
-      //passar o conteudo de movies para o banco
-    }
-    // dentro do controlle, fazer requisicao pra API, pra pegar as info do filme e depois saalvar no db
-  };
 
   //WatchList
   const handleWatchList = () => {
     setWatchList(!watchList);
 
-    if (watchList === true) {
+    if (watchList == true) {
+  
+   //   console.log('userID:', login.user.userid);
+   //   console.log('movieID:', movieDetails.movieDB);
+
+      // insert watchlist by movieid, userid
+          axios
+          .post(`/watchlist/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
+          .then((res) => {
+            console.log("watchlist", res.data);
+          })
+          .catch((erro) => console.log(erro));
+
+
     }
   };
+
+
+  //Favorites
+  const handleFavorite = () => {
+    setFavorite(!favorite); // usar true e false para validacao da lista
+
+    if (favorite == true) {
+      
+     // insert favoriteList by movieid, userid
+      axios
+      .post(`/favorites/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
+      .then((res) => {
+        console.log("favoritelist", res.data);
+      })
+      .catch((erro) => console.log(erro));
+    }
+
+    // dentro do controlle, fazer requisicao pra API, pra pegar as info do filme e depois saalvar no db
+  
+  };
+
+
+//REVIEW
+const handleReview = () => {
+   
+}
 
   // const login = useContext(AppContext);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  // console.log("user", user);
+
+// console.log("user", user);
 
 
+
+  const ListReview = (movieDB) => {
+    axios
+      .post(`/reviews`, {movieID: movieDB})
+      .then((res) => {
+        setComments(res.data);
+        console.log('teste review:', res.data);
+      })
+      .catch((erro) => console.log(erro));
+  
+ }
+
+  
   //Reviews
   const onClickHandle = (e) => {
     e.preventDefault();
+
     if(user.isLogIn){
+      // insert Review by movieid, userid, comment, rate
+      axios
+      .post(`/reviews/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB, review: comment, rate: 5})
+      .then((res) => {
+        console.log("reviewlist", res.data);
+      })
+      .catch((erro) => console.log(erro));
+
       setComments((comments) => [...comments, comment]);
       setComment("");
     }else{
@@ -103,10 +175,10 @@ console.log("user", user)
             <span className="gender">{genres}</span>
             <h3>Sinopse</h3>
             <p>{movieDetails.overview}</p>
-            <button onClick={handleFavorite}>
+            <button onClick={handleWatchList}>
               <BsBookmarks /> Add To Watch List
             </button>
-            <button onClick={handleWatchList}>
+            <button onClick={handleFavorite}>
               <BsHeart /> Add To Favorites
             </button>
  
@@ -183,8 +255,8 @@ console.log("user", user)
             <h2>Reviews</h2>
             {comments.map((text) => (
               <div>
-                <h3>{user.user}</h3>
-                <p>{text}</p>
+                <h3>{text.username}</h3>
+                <p>{text.review}</p>
               </div>
             ))}
           </Col>

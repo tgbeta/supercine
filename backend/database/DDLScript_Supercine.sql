@@ -35,7 +35,10 @@ CREATE TABLE tbMovie(
 idMovie integer NOT NULL PRIMARY KEY,
 dsTitle varchar(100) NOT NULL,
 isAdult boolean NOT NULL,
-apiKey varchar(100) NULL
+apiKey varchar(100) NULL,
+posterpath varchar(100) NULL,
+trailerlink varchar(100) NULL,
+dtReleased date NULL	
 );
 
 
@@ -88,26 +91,28 @@ stReview boolean NOT NULL
 ---FUNCTIONS==============================================================================================
 
 CREATE or REPLACE FUNCTION GetUser(uID INTEGER,  uEmail VARCHAR(80))  
-RETURNS table (userId integer, userName varchar(100)) AS
+RETURNS table (userId integer, userName varchar(100), userEmail varchar(100), userAge integer) AS
 $$
 BEGIN
 RETURN QUERY
- select iduser, nmUser 
+ select iduser, nmUser , dsEmail,  
+  COALESCE(cast( date_part('year', CURRENT_DATE) as integer) - cast(date_part('year', dtbirth) as integer), 18)
  from tbuser where dsemail= uEmail or iduser = uID;
 END
 $$
 LANGUAGE plpgsql;
 
 
+
+
 --========================================================================
 
-
 CREATE or REPLACE FUNCTION GetMovie(mID INTEGER,  title VARCHAR(100)) 
-RETURNS table (movieId integer, movie varchar(100), mapikey varchar(100) ) AS
+RETURNS table (movieId integer, movie varchar(100), mapikey varchar(100), mposterpath varchar(100), mtrailerlink varchar(100), mdtreleased date	) AS
 $$
 BEGIN
 RETURN QUERY
- select distinct m.idMovie, dsTitle, apikey 
+ select distinct m.idMovie, dsTitle, apikey , posterpath , trailerlink , dtreleased
  from tbMovie m 
  where m.idmovie = mID or dsTitle = title;
 END
@@ -136,11 +141,11 @@ LANGUAGE plpgsql;
 
 
 CREATE or REPLACE FUNCTION GetWatchList(uID INTEGER) 
-RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100)) AS
+RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100), posterpath varchar(100), trailerlink varchar(100), dtreleased date) AS
 $$
 BEGIN
 RETURN QUERY
- select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle 
+ select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle , m.posterpath , m.trailerlink , m.dtreleased
  from tbUser u 
      	inner join tbWatchList w on u.idUser = w.idUser
         inner join tbMovie m on w.idmovie = m.idmovie 
@@ -155,11 +160,11 @@ LANGUAGE plpgsql;
 
 
 CREATE or REPLACE FUNCTION GetFavoriteList(uID INTEGER) 
-RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100)) AS
+RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100), posterpath varchar(100), trailerlink varchar(100), dtreleased date) AS
 $$
 BEGIN
 RETURN QUERY
- select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle 
+ select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle , m.posterpath , m.trailerlink , m.dtreleased
  from tbUser u 
      	inner join tbWatchList w on u.idUser = w.idUser
         inner join tbMovie m on w.idmovie = m.idmovie 
@@ -170,8 +175,6 @@ LANGUAGE plpgsql;
 
 
 --========================================================================
-
-
 
 CREATE or REPLACE FUNCTION GetReview(mID INTEGER) 
 RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100), review text, rating integer) AS
@@ -190,10 +193,9 @@ LANGUAGE plpgsql;
 
 
 
-
 ---PROCEDURES============================================================================================
 
-CREATE OR REPLACE PROCEDURE pNewUser(uemail varchar(100), uname varchar(100), ubirth date)
+CREATE OR REPLACE PROCEDURE pNewUser(uemail varchar(100), uname varchar(100), ubirth date default null)
 AS
 $$
 DECLARE
@@ -230,7 +232,7 @@ $$ LANGUAGE plpgsql;
 --========================================================================
 
 
-CREATE OR REPLACE PROCEDURE pNewMovie(mtitle varchar(100), madult boolean, mapikey varchar(100))
+CREATE OR REPLACE PROCEDURE pNewMovie(mtitle varchar(100), madult boolean, mapikey varchar(100), mposterpath varchar(100), mtrailerlink varchar(100),mdtreleased date)
 AS
 $$
 DECLARE
@@ -251,14 +253,15 @@ BEGIN
 	 newMovie = newMovie + 1;
     END IF;
     
-     insert into tbmovie(idmovie, dstitle, isadult, apikey) 
-	 values(newMovie, mtitle, madult, mapikey) ; 
+     insert into tbmovie(idmovie, dstitle, isadult, apikey, posterpath, trailerlink ,dtreleased) 
+	 values(newMovie, mtitle, madult, mapikey, mposterpath, mtrailerlink , mdtreleased) ; 
 
     RAISE NOTICE 'New Movie Inserted: %', newMovie;
   END IF;
 
 END;
 $$ LANGUAGE plpgsql;
+
 
 
 --========================================================================
