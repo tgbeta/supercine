@@ -14,6 +14,11 @@ import NavBarAuth from "./components/NavBar/NavBarAuth.jsx";
 import { useEffect, useState } from "react";
 import { AppContext } from "./components/NavBar/AppContext.jsx";
 import ProtectedRoute from "./components/NavBar/ProtectedRoute.jsx";
+import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
+import { auth } from "./firebase-config.js";
+import Wrapper from "./components/Home/Wrapper.jsx";
+
+const provider = new GoogleAuthProvider();
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
@@ -66,30 +71,27 @@ function App() {
       }}
     >
       <BrowserRouter>
-        {/* <nav>
-            <Link to="/home">Home</Link>
-            <Link to="/list">List</Link>
-          </nav> */}
+        <Wrapper>
+          <NavBarAuth />
 
-        <NavBarAuth />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/SearchList" element={<SearchList />} />
+            <Route path="/AboutUs" element={<AboutUs />} />
+            <Route
+              path="/list"
+              element={
+                <ProtectedRoute>
+                  <List />
+                </ProtectedRoute>
+              }
+            />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/SearchList" element={<SearchList />} />
-          <Route path="/AboutUs" element={<AboutUs />} />
-          <Route
-            path="/list"
-            element={
-              <ProtectedRoute>
-                <List />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route path="/Movie" element={<Movie />} />
-        </Routes>
-        <Footer />
+            <Route path="/Movie" element={<Movie />} />
+          </Routes>
+          <Footer />
+        </Wrapper>
       </BrowserRouter>
     </AppContext.Provider>
   );

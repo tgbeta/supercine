@@ -3,7 +3,7 @@
     h2{
         @include title-separator;
     }
-    .col-1{
+    .col-pointer{
         cursor: pointer;
         transform: scale(1.0);
         transition: all 0.5s ease;
@@ -76,9 +76,11 @@
 
 .popular-upcoming{
     margin-top: 30px;
-    .col-1{
-        padding: 0;
-    }
+    @media (min-width: 1200px){ 
+        .col-xl-1{
+            padding: 0;
+        }
+     }
     p{
         font-family: "JostSemiBold";
         font-size: 1.1rem;

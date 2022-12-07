@@ -1,6 +1,9 @@
 .footer{
     background-color: black;
     color: $main-color;
+    @media (max-width: 575.98px) { 
+        height: inherit;
+    }
     height: 80px;
     display: flex;
     flex-direction: column;
@@ -9,6 +12,12 @@
     font-family: 'JostSemiBold';
     ul{
         margin: 0;
+        @media (max-width: 575.98px) { 
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+         }
         li{
             display: inline-block;
             margin:  0 20px;
