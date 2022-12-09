@@ -4,10 +4,12 @@ const {Pool}=require("pg");
 const  showWatchList=(req,res)=>{
     const pool = new Pool(dbCredentials);
     const user    = req.body.userID ;
-
     pool.query("select * from GetWatchList($1)", [user])
-    .then((result)=>res.json(result.rows))
-    .catch((err)=>console.log(err))
+    .then(       (result)=>{
+        console.log('results', result.rows);
+        res.json(result.rows)}
+    )
+    .catch((err)=>console.log("err",err))
     .finally(()=>pool.end);
    }
 
@@ -30,14 +32,12 @@ const  showWatchList=(req,res)=>{
 
     
     const  deleteWatchList=(req,res)=>{
-
-            console.log('deleted from Watchlist',data)
             const pool = new Pool(dbCredentials);
             const watchlistid    = req.body.watchlistID ;
 
             pool.query("CALL pRemoveWatchlist($1)",[watchlistid])
              .then((result)=>result.rows)
-             .then(()=> showWatchlist(req,res))
+             .then(()=> showWatchList(req,res))
              .catch((err)=>console.log(err))
              .finally(()=>pool.end);
 

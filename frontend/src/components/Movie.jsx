@@ -156,7 +156,8 @@ const handleReview = () => {
     genres = movieDetails.genres.join(",");
   }
 console.log("user", user)
-  return (
+
+return (
     <>
       <Container fluid className="header-movie-details"></Container>
 
