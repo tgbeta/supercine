@@ -1,3 +1,15 @@
+--TABLES
+Select * from tbuser;
+select * from tbmovie;
+select * from tbmoviegenre;
+select * from tbwatchlist  where iduser = 1  ;
+
+--WATCHLIST
+update tbwatchlist set iswatched = false, isfavorite = false where iduser = 1 and idmovie= 3
+
+--FAVORITE
+update tbwatchlist set iswatched = true, isfavorite = true where iduser = 1 and idmovie= 1
+
 --USER
 select * FROM getUser(0,'cleliamarcia@gmail.com')  -- by Email
 select * FROM getUser(5,'')                        -- by UserID

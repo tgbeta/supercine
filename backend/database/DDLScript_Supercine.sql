@@ -49,8 +49,6 @@ idGenre integer NOT NULL PRIMARY KEY,
 tpGenre varchar(60) NOT NULL
 );
 
-
-
 --========================================================================
 
 CREATE TABLE tbMovieGenre( 
@@ -147,13 +145,12 @@ BEGIN
 RETURN QUERY
  select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle , m.posterpath , m.trailerlink , m.dtreleased
  from tbUser u 
-     	inner join tbWatchList w on u.idUser = w.idUser
-        inner join tbMovie m on w.idmovie = m.idmovie 
+    inner join tbWatchList w on u.idUser = w.idUser
+    inner join tbMovie m on w.idmovie = m.idmovie 
 where u.idUser = uID and w.isWatched = false;
 END
 $$
 LANGUAGE plpgsql;
-
 
 
 --========================================================================
@@ -191,8 +188,6 @@ $$
 LANGUAGE plpgsql;
 
 
-
-
 ---PROCEDURES============================================================================================
 
 CREATE OR REPLACE PROCEDURE pNewUser(uemail varchar(100), uname varchar(100), ubirth date default null)
@@ -208,7 +203,7 @@ BEGIN
 			where dsemail = uemail)
   THEN
     RAISE NOTICE 'User already exists %', newUser;
-	
+
   ELSE
   
     newUser = (SELECT max(iduser) FROM tbuser);
@@ -314,9 +309,9 @@ DECLARE
 	
 BEGIN
 
-  IF EXISTS(select idwatchlist from tbWatchList where iduser = uid and idmovie = mid )  THEN
+  IF EXISTS(select idwatchlist from tbWatchList where iduser = uID and idmovie = mID )  THEN
  
-	UPDATE tbWatchList set iswatched = false, dtupdate = current_date where iduser = uid and idmovie = mid;
+	UPDATE tbWatchList set iswatched = false, isfavorite= false, dtupdate = current_date where iduser = uID and idmovie = mID;
 	
 	RAISE NOTICE  'Movie already in the WatchList %', ListId;
 	
@@ -332,7 +327,7 @@ BEGIN
     END IF;
     
      insert into tbWatchList(idWatchlist, idmovie, iduser, iswatched,isfavorite, dtinsert) 
-	 values(ListId, mid, uid,false,false, current_date) ; 
+	 values(ListId, mID, uID,false,false, current_date) ; 
 
     RAISE NOTICE 'New Movie Inserted in the WatchList : %', ListId;
   END IF;
@@ -373,9 +368,9 @@ DECLARE
 	
 BEGIN
 
-  IF EXISTS(select idwatchlist from tbWatchList where iduser = uid and idmovie = mid)  THEN
+  IF EXISTS(select idwatchlist from tbWatchList where iduser = uID and idmovie = mID)  THEN
         
-	UPDATE tbWatchList set iswatched = true,  isFavorite = true, dtupdate= current_date where iduser = uid and idmovie = mid;
+	UPDATE tbWatchList set iswatched = true,  isFavorite = true, dtupdate= current_date where iduser = uID and idmovie = mID;
 
 	RAISE NOTICE 'Movie already in the FavoriteList %', ListId;
  
@@ -391,7 +386,7 @@ BEGIN
     END IF;
     
      insert into tbWatchList(idWatchlist, idmovie, iduser, iswatched, isfavorite, dtinsert) 
-	 values(ListId, mid, uid,true, true, current_date) ; 
+	 values(ListId, mID, uID,true, true, current_date) ; 
 
     RAISE NOTICE 'Movie Inserted in the FavoriteList : %', ListId;
   END IF;
@@ -408,7 +403,7 @@ BEGIN
 
   IF EXISTS(select idwatchlist from tbWatchList where idwatchlist = listId)  THEN
         
-	UPDATE tbWatchList set isFavorite = false, dtupdate= current_date where idwatchlist = listId;
+	UPDATE tbWatchList set iswatched = true, isFavorite = false, dtupdate= current_date where idwatchlist = listID;
 
 	RAISE NOTICE 'Movie removed from FavoriteList %', ListId;
   END IF;
