@@ -20,7 +20,7 @@ export default function FavoriteList(props) {
       .post(`/favorites/add`, {userID: login.user.userid,  movieID: movie})
       .then((res) => {
         setFavorites(res.data);
-        console.log("favoritelist", res.data);        
+        console.log("add favorite list", res.data);        
       })
       .catch((erro) => console.log(erro));
   };
@@ -41,7 +41,7 @@ export default function FavoriteList(props) {
     axios.post(`/favorites/`, {userID: user})
     .then((res) => {
       setFavorites(res.data);
-      console.log('teste favorites:', res.data);
+      console.log('show favorites:', res.data);
     })
     .catch((erro) => console.log(erro));
 }
@@ -60,15 +60,18 @@ export default function FavoriteList(props) {
     axios.post(`/watchlist/`, {userID: user})
     .then((res) => {
       setWatchlist(res.data);
-      console.log('teste watchlist:', res.data);
+      console.log('show watchlist:', res.data);
     })
     .catch((erro) => console.log(erro));
     }
   
+
     useEffect(() => {    
       showWatchList(login.user.userid);  //userid
       showFavorites(login.user.userid);
     }, []);
+
+
 
  return (
 
@@ -82,8 +85,8 @@ export default function FavoriteList(props) {
                     <Col xs={2}>
                       <img src={`${wat.posterpath}`} className="img-fluid" alt="" />
                       <span>{`${wat.movie}`}</span>
-                      <button className="btn-remove"  onClick={deleteWatchlist(wat.id)}><BsTrash /> Remove</button>
-                      <button className="btn-favorites"  onClick={handleFavorite(wat.movieid)}> <BsHeart /> Add To Favorites</button>
+                      <button className="btn-remove"  onClick={ () => { deleteWatchlist(wat.id) }}><BsTrash /> Remove</button>
+                      <button className="btn-favorites"  onClick={() => {handleFavorite(wat.movieid)}}> <BsHeart /> Add To Favorites</button>
                     </Col>
                   ))}
                 </Row>
@@ -96,7 +99,7 @@ export default function FavoriteList(props) {
                    <Col xs={2}>
                       <img src= {`${fav.posterpath}`} className="img-fluid" alt="" />
                       <span>{`${fav.movie}`}</span>
-                      <button className="btn-remove" onClick={deleteFavorite(fav.id)}><BsTrash /> Remove</button>
+                      <button className="btn-remove" onClick={ () => {deleteFavorite(fav.id)} }><BsTrash /> Remove</button>
                     </Col>
                 ))}
                 </Row>

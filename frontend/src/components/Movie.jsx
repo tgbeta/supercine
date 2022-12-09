@@ -92,7 +92,7 @@ const user = useContext(AppContext);
       axios
       .post(`/favorites/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
       .then((res) => {
-        console.log("favoritelist", res.data);
+        console.log("add favorite movie", res.data);
       })
       .catch((erro) => console.log(erro));
     }
@@ -113,14 +113,12 @@ const handleReview = () => {
 
 // console.log("user", user);
 
-
-
   const ListReview = (movieDB) => {
     axios
       .post(`/reviews`, {movieID: movieDB})
       .then((res) => {
         setComments(res.data);
-        console.log('teste review:', res.data);
+        console.log('list review:', res.data);
       })
       .catch((erro) => console.log(erro));
   
@@ -130,13 +128,12 @@ const handleReview = () => {
   //Reviews
   const onClickHandle = (e) => {
     e.preventDefault();
-
     if(user.isLogIn){
       // insert Review by movieid, userid, comment, rate
       axios
       .post(`/reviews/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB, review: comment, rate: 5})
       .then((res) => {
-        console.log("reviewlist", res.data);
+        console.log("add review", res.data);
       })
       .catch((erro) => console.log(erro));
 

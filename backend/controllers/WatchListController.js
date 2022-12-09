@@ -6,7 +6,7 @@ const  showWatchList=(req,res)=>{
     const user    = req.body.userID ;
     pool.query("select * from GetWatchList($1)", [user])
     .then(       (result)=>{
-        console.log('results', result.rows);
+        console.log('get watchlist', result.rows);
         res.json(result.rows)}
     )
     .catch((err)=>console.log("err",err))

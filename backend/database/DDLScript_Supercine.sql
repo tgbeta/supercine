@@ -38,7 +38,8 @@ isAdult boolean NOT NULL,
 apiKey varchar(100) NULL,
 posterpath varchar(100) NULL,
 trailerlink varchar(100) NULL,
-dtReleased date NULL	
+dtReleased date NULL,
+dtInsert date NULL
 );
 
 
@@ -85,7 +86,6 @@ stReview boolean NOT NULL
 
 
 
-
 ---FUNCTIONS==============================================================================================
 
 CREATE or REPLACE FUNCTION GetUser(uID INTEGER,  uEmail VARCHAR(80))  
@@ -129,7 +129,8 @@ RETURN QUERY
  from tbMovie m 
  	inner join tbMovieGenre mg on m.idmovie = mg.idmovie
 	inner join tbGenre g on mg.idgenre = g.idgenre
- where m.idmovie = mID  or g.tpGenre = mgenre;
+ where m.idmovie = mID  or g.tpGenre = mgenre
+ order by tbGenre;
 END
 $$
 LANGUAGE plpgsql;
@@ -147,14 +148,14 @@ RETURN QUERY
  from tbUser u 
     inner join tbWatchList w on u.idUser = w.idUser
     inner join tbMovie m on w.idmovie = m.idmovie 
-where u.idUser = uID and w.isWatched = false;
+where u.idUser = uID and w.isWatched = false
+order by id;
 END
 $$
 LANGUAGE plpgsql;
 
 
 --========================================================================
-
 
 CREATE or REPLACE FUNCTION GetFavoriteList(uID INTEGER) 
 RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100), posterpath varchar(100), trailerlink varchar(100), dtreleased date) AS
@@ -165,7 +166,9 @@ RETURN QUERY
  from tbUser u 
      	inner join tbWatchList w on u.idUser = w.idUser
         inner join tbMovie m on w.idmovie = m.idmovie 
-where u.idUser = uID and w.isFavorite = true;
+where u.idUser = uID and w.isFavorite = true
+order by id;
+
 END
 $$
 LANGUAGE plpgsql;
@@ -248,8 +251,8 @@ BEGIN
 	 newMovie = newMovie + 1;
     END IF;
     
-     insert into tbmovie(idmovie, dstitle, isadult, apikey, posterpath, trailerlink ,dtreleased) 
-	 values(newMovie, mtitle, madult, mapikey, mposterpath, mtrailerlink , mdtreleased) ; 
+     insert into tbmovie(idmovie, dstitle, isadult, apikey, posterpath, trailerlink ,dtreleased, dtinsert) 
+	 values(newMovie, mtitle, madult, mapikey, 'https://www.themoviedb.org/t/p/w220_and_h330_face' || mposterpath, mtrailerlink , mdtreleased, current_date) ; 
 
     RAISE NOTICE 'New Movie Inserted: %', newMovie;
   END IF;
@@ -313,7 +316,7 @@ BEGIN
  
 	UPDATE tbWatchList set iswatched = false, isfavorite= false, dtupdate = current_date where iduser = uID and idmovie = mID;
 	
-	RAISE NOTICE  'Movie already in the WatchList %', ListId;
+	RAISE NOTICE  'Movie updated in the WatchList %', ListId;
 	
   ELSE
   
@@ -348,7 +351,7 @@ BEGIN
  
 	UPDATE tbWatchList set iswatched = true, dtupdate = current_date where idwatchlist = listId;
 	
-    RAISE NOTICE 'Movie removed from WatchList';
+    RAISE NOTICE 'Movie removed from WatchList: %', ListId;
   END IF;
 
 END;
@@ -372,7 +375,7 @@ BEGIN
         
 	UPDATE tbWatchList set iswatched = true,  isFavorite = true, dtupdate= current_date where iduser = uID and idmovie = mID;
 
-	RAISE NOTICE 'Movie already in the FavoriteList %', ListId;
+	RAISE NOTICE 'Movie updated in the FavoriteList %', ListId;
  
  ELSE
   
