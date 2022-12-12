@@ -62,13 +62,7 @@ const user = useContext(AppContext);
 
   //WatchList
   const handleWatchList = () => {
-    setWatchList(!watchList);
-
-    if (watchList == true) {
   
-   //   console.log('userID:', login.user.userid);
-   //   console.log('movieID:', movieDetails.movieDB);
-
       // insert watchlist by movieid, userid
           axios
           .post(`/watchlist/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
@@ -77,16 +71,11 @@ const user = useContext(AppContext);
           })
           .catch((erro) => console.log(erro));
 
-
-    }
   };
 
 
   //Favorites
   const handleFavorite = () => {
-    setFavorite(!favorite); // usar true e false para validacao da lista
-
-    if (favorite == true) {
       
      // insert favoriteList by movieid, userid
       axios
@@ -95,17 +84,11 @@ const user = useContext(AppContext);
         console.log("add favorite movie", res.data);
       })
       .catch((erro) => console.log(erro));
-    }
 
-    // dentro do controlle, fazer requisicao pra API, pra pegar as info do filme e depois saalvar no db
-  
   };
 
 
 //REVIEW
-const handleReview = () => {
-   
-}
 
   // const login = useContext(AppContext);
   const [comment, setComment] = useState("");
@@ -134,11 +117,11 @@ const handleReview = () => {
       .post(`/reviews/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB, review: comment, rate: 5})
       .then((res) => {
         console.log("add review", res.data);
+        setComments(res.data);
+        setComment("");
       })
       .catch((erro) => console.log(erro));
 
-      setComments((comments) => [...comments, comment]);
-      setComment("");
     }else{
       user.login()
     }

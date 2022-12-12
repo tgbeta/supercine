@@ -40,7 +40,6 @@ const  showWatchList=(req,res)=>{
              .then(()=> showWatchList(req,res))
              .catch((err)=>console.log(err))
              .finally(()=>pool.end);
-
         }
     
 

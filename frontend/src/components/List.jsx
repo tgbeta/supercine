@@ -20,6 +20,7 @@ export default function FavoriteList(props) {
       .post(`/favorites/add`, {userID: login.user.userid,  movieID: movie})
       .then((res) => {
         setFavorites(res.data);
+        showWatchList(login.user.userid);
         console.log("add favorite list", res.data);        
       })
       .catch((erro) => console.log(erro));
@@ -27,7 +28,7 @@ export default function FavoriteList(props) {
 
   const deleteFavorite=(favid)  => {
        axios
-        .post(`/favorites/delete`, {favoriteID: favid })
+        .post(`/favorites/delete`, {favoriteID: favid, userID: login.user.userid })
         .then((res) => {
           setFavorites(res.data);
           console.log("favorite deleted!", res.data);         
@@ -35,7 +36,10 @@ export default function FavoriteList(props) {
         .catch((erro) => console.log(erro));
    };
 
-
+   const showMovies = (user) =>{
+    showWatchList(user);
+    showFavorites(user);
+   }
 
   const showFavorites=(user) =>  {
     axios.post(`/favorites/`, {userID: user})
@@ -48,7 +52,7 @@ export default function FavoriteList(props) {
   
   const deleteWatchlist=(watid)  => {
     axios
-    .post(`/watchlist/delete`, {watchlistID: watid })
+    .post(`/watchlist/delete`, {watchlistID: watid, userID: login.user.userid })
     .then((res) => {
       setWatchlist(res.data);
       console.log("watchlist deleted!", res.data);      
@@ -63,17 +67,18 @@ export default function FavoriteList(props) {
       console.log('show watchlist:', res.data);
     })
     .catch((erro) => console.log(erro));
+
+  
     }
   
+useEffect(() => {    
+  //  showWatchList(login.user.userid);  //userid
+  //  showFavorites(login.user.userid);
+      showMovies(login.user.userid);
+}, []);
 
-    useEffect(() => {    
-      showWatchList(login.user.userid);  //userid
-      showFavorites(login.user.userid);
-    }, []);
 
-
-
- return (
+return (
 
         <>
             <Container fluid className="header-movie-details">
