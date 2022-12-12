@@ -62,13 +62,7 @@ const user = useContext(AppContext);
 
   //WatchList
   const handleWatchList = () => {
-    setWatchList(!watchList);
-
-    if (watchList == true) {
   
-   //   console.log('userID:', login.user.userid);
-   //   console.log('movieID:', movieDetails.movieDB);
-
       // insert watchlist by movieid, userid
           axios
           .post(`/watchlist/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
@@ -77,35 +71,24 @@ const user = useContext(AppContext);
           })
           .catch((erro) => console.log(erro));
 
-
-    }
   };
 
 
   //Favorites
   const handleFavorite = () => {
-    setFavorite(!favorite); // usar true e false para validacao da lista
-
-    if (favorite == true) {
       
      // insert favoriteList by movieid, userid
       axios
       .post(`/favorites/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
       .then((res) => {
-        console.log("favoritelist", res.data);
+        console.log("add favorite movie", res.data);
       })
       .catch((erro) => console.log(erro));
-    }
 
-    // dentro do controlle, fazer requisicao pra API, pra pegar as info do filme e depois saalvar no db
-  
   };
 
 
 //REVIEW
-const handleReview = () => {
-   
-}
 
   // const login = useContext(AppContext);
   const [comment, setComment] = useState("");
@@ -113,14 +96,12 @@ const handleReview = () => {
 
 // console.log("user", user);
 
-
-
   const ListReview = (movieDB) => {
     axios
       .post(`/reviews`, {movieID: movieDB})
       .then((res) => {
         setComments(res.data);
-        console.log('teste review:', res.data);
+        console.log('list review:', res.data);
       })
       .catch((erro) => console.log(erro));
   
@@ -130,18 +111,17 @@ const handleReview = () => {
   //Reviews
   const onClickHandle = (e) => {
     e.preventDefault();
-
     if(user.isLogIn){
       // insert Review by movieid, userid, comment, rate
       axios
       .post(`/reviews/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB, review: comment, rate: 5})
       .then((res) => {
-        console.log("reviewlist", res.data);
+        console.log("add review", res.data);
+        setComments(res.data);
+        setComment("");
       })
       .catch((erro) => console.log(erro));
 
-      setComments((comments) => [...comments, comment]);
-      setComment("");
     }else{
       user.login()
     }
@@ -156,7 +136,8 @@ const handleReview = () => {
     genres = movieDetails.genres.join(",");
   }
 console.log("user", user)
-  return (
+
+return (
     <>
       <Container fluid className="header-movie-details"></Container>
 
