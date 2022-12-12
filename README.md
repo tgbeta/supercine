@@ -77,30 +77,47 @@ PostgreSQL
   Watch List
   Review
 - Columns are attributes. Identify the attributes of each noun.
-  Movie
-  ID
-  Title
-  Genre
-  apikey
-  User
-  ID
-  Name
-  Email
-  Date Insert
-  Watch List
-  ID
-  User ID
-  Movie ID
-  is Watched
-  is Favorite
-  Date Insert
-  Review
-  ID
-  User ID
-  Movie ID
-  Rate
-  Comment
-  Date Insert
+ User
+    ID
+    Name
+    Email
+    Date Birth
+    Date Insert
+
+ Movie
+    ID
+    Title
+    apikey
+    posterpath
+    trailerlink
+    dtReleased
+    dtInsert
+    
+ MovieGenre
+    Movie ID
+    Genre ID
+ 
+ Genre
+    ID
+    Genre
+ 
+  
+ Watch List
+    ID
+    User ID
+    Movie ID
+    is Watched
+    is Favorite
+    Date Insert
+  
+ Review
+    ID
+    User ID
+    Movie ID
+    Rate
+    Comment
+    Date Insert
+  
 - Identify the entities and relationships:
   - One to many
     Movie
@@ -108,7 +125,7 @@ PostgreSQL
   - Many to many (create a join table)
     Watch List
     Review
-- Draw the ERD
+- Draw the ERD  - https://viewer.diagrams.net/?tags=%7B%7D&highlight=0000ff&edit=_blank&layers=1&nav=1&title=FinalProject_Supercine_ERDiagram.png#R7V1td6K[…]1%2FgU%3D
 
 # Wireframes
 
@@ -180,6 +197,11 @@ if user is not logged in:
 
 ### GET `watch list`
 
+### GET `reviews`
+
 ### POST `favorite movie`
 
 ### POST `watch list`
+
+### POST `review`
+
