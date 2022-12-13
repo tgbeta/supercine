@@ -24,3 +24,15 @@
 .navbar-collapse{
     flex-grow: inherit;
 }
+
+.navbar-toggler{
+    background-color: $main-color;
+}
+
+.navbar-brand{
+    img{
+        @media (max-width: 575.98px) { 
+            max-width: 130px;
+         }
+    }
+}

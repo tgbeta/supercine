@@ -1,6 +1,20 @@
+--VERIFY TABLES  =====================================================================================================
+Select * from tbuser;
+select * from tbmovie order by idmovie;
+select * from tbmoviegenre;
+select * from tbwatchlist  where iduser = 1 ;
+
+--ISWATCHLIST
+update tbwatchlist set iswatched = false, isfavorite = false where iduser = 1 and idmovie in  (3, 2, 9)
+
+--ISFAVORITE
+update tbwatchlist set iswatched = true, isfavorite = true where iduser = 1 and idmovie in (1,4,7)
+
+--FUNCTIONS AND PROCEDURES  =================================================================================
+
 --USER
 select * FROM getUser(0,'cleliamarcia@gmail.com')  -- by Email
-select * FROM getUser(5,'')                        -- by UserID
+select * FROM getUser(7,'')                        -- by UserID
 
 --RETURNS:   userid, username, useremail, userage
 
@@ -61,12 +75,13 @@ CALL pRemoveFavoriteList(5)   --listID
 --======================================================================================
 
 --REVIEW
+select * from tbReview;
 
 select * from getReview(4)  --byMovieID
 
+
 --INSERT REVIEW
 CALL pAddReview(1, 1, 'I liked it', 3 )
-
 
 --REMOVE REVIEW
 CALL pRemoveReview(2)

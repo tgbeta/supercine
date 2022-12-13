@@ -2,11 +2,10 @@
 import axios from "axios";
 import React, { useState, useContext, useEffect } from "react";
 import { AppContext } from "./NavBar/AppContext";
-import { Link, useLocation } from "react-router-dom";
-import { Navbar, Container, Nav, NavDropdown, Row, Col } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
 import Ratio from "react-bootstrap/Ratio";
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
 import {
   BsHeart,
   BsTextareaT,
@@ -61,16 +60,9 @@ const user = useContext(AppContext);
   const [favorite, setFavorite] = useState(false);
   const [watchList, setWatchList] = useState(false);
 
-
   //WatchList
   const handleWatchList = () => {
-    setWatchList(!watchList);
-
-    if (watchList == true) {
   
-   //   console.log('userID:', login.user.userid);
-   //   console.log('movieID:', movieDetails.movieDB);
-
       // insert watchlist by movieid, userid
           axios
           .post(`/watchlist/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
@@ -79,35 +71,24 @@ const user = useContext(AppContext);
           })
           .catch((erro) => console.log(erro));
 
-
-    }
   };
 
 
   //Favorites
   const handleFavorite = () => {
-    setFavorite(!favorite); // usar true e false para validacao da lista
-
-    if (favorite == true) {
       
      // insert favoriteList by movieid, userid
       axios
       .post(`/favorites/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
       .then((res) => {
-        console.log("favoritelist", res.data);
+        console.log("add favorite movie", res.data);
       })
       .catch((erro) => console.log(erro));
-    }
 
-    // dentro do controlle, fazer requisicao pra API, pra pegar as info do filme e depois saalvar no db
-  
   };
 
 
 //REVIEW
-const handleReview = () => {
-   
-}
 
   // const login = useContext(AppContext);
   const [comment, setComment] = useState("");
@@ -115,14 +96,12 @@ const handleReview = () => {
 
 // console.log("user", user);
 
-
-
   const ListReview = (movieDB) => {
     axios
       .post(`/reviews`, {movieID: movieDB})
       .then((res) => {
         setComments(res.data);
-        console.log('teste review:', res.data);
+        console.log('list review:', res.data);
       })
       .catch((erro) => console.log(erro));
   
@@ -132,18 +111,17 @@ const handleReview = () => {
   //Reviews
   const onClickHandle = (e) => {
     e.preventDefault();
-
     if(user.isLogIn){
       // insert Review by movieid, userid, comment, rate
       axios
       .post(`/reviews/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB, review: comment, rate: 5})
       .then((res) => {
-        console.log("reviewlist", res.data);
+        console.log("add review", res.data);
+        setComments(res.data);
+        setComment("");
       })
       .catch((erro) => console.log(erro));
 
-      setComments((comments) => [...comments, comment]);
-      setComment("");
     }else{
       user.login()
     }
@@ -158,20 +136,21 @@ const handleReview = () => {
     genres = movieDetails.genres.join(",");
   }
 console.log("user", user)
-  return (
+
+return (
     <>
       <Container fluid className="header-movie-details"></Container>
 
       <Container className="movie-details">
-        <Row>
-          <Col xs={3}>
+        <Row className="justify-content-center">
+          <Col xs={10} md={3} className="mb-3">
             <img
               src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               className="img-fluid"
               alt=""
             />
           </Col>
-          <Col xs={9}>
+          <Col xs={10} md={9}>
             <h2>{movieDetails.original_title}</h2>
             <span>{movieDetails.release_date}</span>
             <span className="gender">{genres}</span>
@@ -183,9 +162,6 @@ console.log("user", user)
             <button onClick={handleFavorite}>
               <BsHeart /> Add To Favorites
             </button>
-            {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-            </Button> */}
  
                {!user.isLogIn ? (
                 <button onClick={() => user.login()}><BsTextareaT /> Write Your Reviews</button>
@@ -221,7 +197,7 @@ console.log("user", user)
 
       <Container fluid className="trailer">
         <Row className="justify-content-md-center">
-          <Col xs={10}>
+          <Col xs={12}>
             <h2>trailer</h2>
             <Ratio aspectRatio={1 / 2}>
               <div>
@@ -241,8 +217,8 @@ console.log("user", user)
       </Container>
 
       <Container className="reviews">
-        <Row>
-          <Col>
+        <Row className="justify-content-center">
+          <Col xs={10}>
             <h2 id="write-review">write your Reviews</h2>
             <form>
               <textarea
@@ -255,8 +231,8 @@ console.log("user", user)
             </form>
           </Col>
         </Row>
-        <Row>
-          <Col className="all-reviwes">
+        <Row className="justify-content-center">
+          <Col className="all-reviwes" xs={10}>
             <h2>Reviews</h2>
             {comments.map((text) => (
               <div>

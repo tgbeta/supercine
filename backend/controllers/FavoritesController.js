@@ -29,7 +29,7 @@ const  showFavorites=(req,res)=>{
 
     
     const  deleteFavorite=(req,res)=>{
-            console.log('deleted from Favorites',data)
+           
             const pool = new Pool(dbCredentials);
             const favoriteid  = req.body.favoriteID ;
 

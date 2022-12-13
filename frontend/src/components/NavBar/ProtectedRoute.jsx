@@ -4,6 +4,7 @@ import { AppContext } from "./AppContext";
 
 export default function ProtectedRoute({ children }) {
   const login = useContext(AppContext);
+  console.log('login', login)
   if (!login.isLogIn) return <Navigate to="/Home" />;
   return <>{children}</>;
 }
