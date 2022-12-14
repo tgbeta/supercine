@@ -34,6 +34,22 @@ const  showMovies=(req,res)=>{
 
 //=============================================
 
+const  showMoviesUser=(req,res)=>{
+    const pool = new Pool(dbCredentials);
+    const movie = req.body.movieID ;
+    const user  = req.body.userID;
+    console.log("teste movieuser",movie);
+    console.log("teste movieuser",user);
+
+    pool.query("select * from GetMovieUser($1,  $2)", [movie, user])
+    .then((result)=>res.json(result.rows))
+    .catch((err)=>console.log(err))
+    .finally(()=>pool.end);
+   }
+
+
+//=============================================
+
 const  showMoviesGenre=(req,res)=>{
     const pool = new Pool(dbCredentials);
     const movieID = req.body.movieID;
@@ -62,7 +78,6 @@ const  showMoviesGenre=(req,res)=>{
 //=============================================
 
    const  addMovie=(req,res)=>{
-
         const pool = new Pool(dbCredentials);
         const mtitle  = req.body.movieTitle ;
         const mapikey = req.body.movieapiID;
@@ -100,5 +115,6 @@ const  addMovieGenre=(req,res)=>{
         showMoviesGenre,
         addMovie,
         addMovieGenre,
+        showMoviesUser,
     }
 
