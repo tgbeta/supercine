@@ -355,6 +355,11 @@
   align-items: center;
   margin: 3px 0;
   justify-content: space-around;
+  transition: all 0.3s ease;
+}
+.movie-details button:hover {
+  background-color: black;
+  color: white;
 }
 
 .trailer {
