@@ -60,8 +60,12 @@ const user = useContext(AppContext);
   const [favorite, setFavorite] = useState(false);
   const [watchList, setWatchList] = useState(false);
 
+  const adicionado = document.querySelector(".addedWatch");
+
   //WatchList
   const handleWatchList = () => {
+
+    adicionado.innerText = "Added To Watch List"
   
       // insert watchlist by movieid, userid
           axios
@@ -70,6 +74,8 @@ const user = useContext(AppContext);
             console.log("watchlist", res.data);
           })
           .catch((erro) => console.log(erro));
+
+
 
   };
 
@@ -156,7 +162,7 @@ return (
             <span className="gender">{genres}</span>
             <h3>Sinopse</h3>
             <p>{movieDetails.overview}</p>
-            <button onClick={handleWatchList}>
+            <button className="addedWatch" onClick={handleWatchList}>
               <BsBookmarks /> Add To Watch List
             </button>
             <button onClick={handleFavorite}>
