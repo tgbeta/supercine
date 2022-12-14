@@ -138,6 +138,23 @@ LANGUAGE plpgsql;
 
 --========================================================================
 
+CREATE or REPLACE FUNCTION GetMovieUser(mID INTEGER,  uID INTEGER) 
+RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100), isWatched boolean, isFavorite boolean) AS
+$$
+BEGIN
+RETURN QUERY
+ select w.idWatchlist as id, u.idUser, u.nmUser,  m.idMovie, m.dsTitle, w.isWatched, w.isFavorite
+ from tbUser u 
+    inner join tbWatchList w on u.idUser = w.idUser
+    inner join tbMovie m on w.idmovie = m.idmovie 
+where u.idUser = uID and  m.idMovie = mID;
+END
+$$
+LANGUAGE plpgsql;
+
+
+--========================================================================
+
 
 CREATE or REPLACE FUNCTION GetWatchList(uID INTEGER) 
 RETURNS table (id integer, userId integer, userName varchar(100), movieId integer, movie varchar(100), posterpath varchar(100), trailerlink varchar(100), dtreleased date) AS
