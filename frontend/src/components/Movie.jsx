@@ -37,7 +37,7 @@ const user = useContext(AppContext);
       .then((res) => {
         console.log('new movie:',res.data);
         setMovieDetails({...movieapi, movieDB: res.data.movieid});  // getmovieid by title
-        ListReview(res.data.movieid);     
+        ListReview(res.data.movieid);  
       })
       .catch((erro) => console.log(erro));
 
@@ -45,6 +45,24 @@ const user = useContext(AppContext);
 
     };
 
+  //MovieUSer
+  const getMovieUser = (mID,uID) => {
+  
+    // get list of movies by movieid, userid
+        axios
+        .post(`/moviesdb/movieuser`, {movieID: mID, userID: uID})
+        .then((res) => {
+          console.log("movieuser", res.data);
+        })
+        .catch((erro) => console.log(erro));
+
+};
+
+useEffect(() => {
+if (login.user && movieDetails.movieDB) {
+  getMovieUser( movieDetails.movieDB ,  login.user.userid ); 
+}
+}, [login, movieDetails ]);
 
   useEffect(() => {
     axios
