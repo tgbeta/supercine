@@ -4,12 +4,6 @@ select * from tbmovie order by idmovie;
 select * from tbmoviegenre;
 select * from tbwatchlist  where iduser = 1 ;
 
---ISWATCHLIST
-update tbwatchlist set iswatched = false, isfavorite = false where iduser = 1 and idmovie in  (3, 2, 9)
-
---ISFAVORITE
-update tbwatchlist set iswatched = true, isfavorite = true where iduser = 1 and idmovie in (1,4,7)
-
 --FUNCTIONS AND PROCEDURES  =================================================================================
 
 --USER
@@ -44,6 +38,9 @@ CALL pNewMovieGenre(6, 'Romance')
 
 
 --======================================================================================
+--MOVIE USER
+select * from GetMovieUser(20,  1)  --by MovieID, UserID
+
 
 --WATCH LIST
 
@@ -88,7 +85,13 @@ CALL pRemoveReview(2)
 
 
 
+--MANUALLY CHANGE LISTS
 
+--ISWATCHLIST
+--update tbwatchlist set iswatched = false, isfavorite = false where iduser = 1 and idmovie in  (3, 2, 9)
+
+--ISFAVORITE
+--update tbwatchlist set iswatched = true, isfavorite = true where iduser = 1 and idmovie in (1,4,7)
 
 
 
