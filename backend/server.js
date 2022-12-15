@@ -43,7 +43,7 @@ server.use("/watchlist", WatchListRoute);
 
 server.use("/reviews", ReviewsRoute);
 
-server.get("/", (req, res) => {
+server.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build/index.html"));
 });
 

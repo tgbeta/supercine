@@ -75,7 +75,7 @@ useEffect(() => {
   //  showWatchList(login.user.userid);  //userid
   //  showFavorites(login.user.userid);
       showMovies(login.user.userid);
-}, []);
+}, [login]);
 
 
 return (
