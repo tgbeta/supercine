@@ -1,5 +1,5 @@
-import React,{useLayoutEffect} from 'react';
-import {Routes, Route, BrowserRouter as Router, useLocation} from 'react-router-dom';
+import {useLayoutEffect} from 'react';
+import { useLocation} from 'react-router-dom';
 
 
     const Wrapper = ({children}) => {
