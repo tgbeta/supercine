@@ -52,6 +52,8 @@ const user = useContext(AppContext);
         axios
         .post(`/moviesdb/movieuser`, {movieID: mID, userID: uID})
         .then((res) => {
+          setFavorite(res.data[0].isfavorite)
+          setWatchList(!res.data[0].iswatched)
           console.log("movieuser", res.data);
         })
         .catch((erro) => console.log(erro));
@@ -78,24 +80,23 @@ if (login.user && movieDetails.movieDB) {
   const [favorite, setFavorite] = useState(false);
   const [watchList, setWatchList] = useState(false);
 
-  const adicionado = document.querySelector(".addedWatch");
-  const favoriteadicionado = document.querySelector(".addedFavorite");
+  // const adicionado = document.querySelector(".addedWatch");
+  // const favoriteadicionado = document.querySelector(".addedFavorite");
   
 
   //WatchList
   const handleWatchList = () => {
 
-    adicionado.innerText = "Added To Watch List"
+    // adicionado.innerText = "Added To Watch List"
   
       // insert watchlist by movieid, userid
           axios
           .post(`/watchlist/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
           .then((res) => {
+            setWatchList(true)
             console.log("watchlist", res.data);
           })
           .catch((erro) => console.log(erro));
-
-
 
   };
 
@@ -103,12 +104,14 @@ if (login.user && movieDetails.movieDB) {
   //Favorites
   const handleFavorite = () => {
 
-    favoriteadicionado.innerText = "Added as Favorite"
+    // favoriteadicionado.innerText = "Added as Favorite"
       
      // insert favoriteList by movieid, userid
       axios
       .post(`/favorites/add`, {userID: login.user.userid,  movieID: movieDetails.movieDB })
       .then((res) => {
+        setFavorite(true)
+        setWatchList(false)
         console.log("add favorite movie", res.data);
       })
       .catch((erro) => console.log(erro));
@@ -184,11 +187,11 @@ return (
             <span className="gender">{genres}</span>
             <h3>Sinopse</h3>
             <p>{movieDetails.overview}</p>
-            <button className="addedWatch" onClick={handleWatchList}>
-              <BsBookmarks /> Add To Watch List
+            <button onClick={handleWatchList}>
+              <BsBookmarks /> {watchList? "Added to Watch List" : "Add To Watch List"}
             </button>
-            <button className="addedFavorite" onClick={handleFavorite}>
-              <BsHeart /> Add To Favorites
+            <button onClick={handleFavorite}>
+              <BsHeart />{favorite? "Added as Favorite" : "Add To Favorites"}
             </button>
  
                {!user.isLogIn ? (
