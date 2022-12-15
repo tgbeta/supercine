@@ -4,7 +4,15 @@ import { AppContext } from "./AppContext";
 
 export default function ProtectedRoute({ children }) {
   const login = useContext(AppContext);
-  console.log('login', login)
-  if (!login.isLogIn) return <Navigate to="/Home" />;
+  console.log('loading', login);
+  if(login.isLoading) {
+    console.log('still loading', login.isLoading);
+    return
+  }
+  if (!login.isLogIn) {
+    console.log('not loading and not logged', login.isLogIn)
+    return <Navigate to="/home" />;
+  }
+  console.log('not loading and logged', login.isLoading, login.isLogIn);
   return <>{children}</>;
 }

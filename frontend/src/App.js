@@ -22,6 +22,7 @@ const provider = new GoogleAuthProvider();
 
 function App() {
   const [isLogIn, setIsLogIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   console.log(isLogIn);
 
   const [user, setUser] = useState(null);
@@ -56,6 +57,7 @@ function App() {
         setIsLogIn(false);
         console.log("deslogado", user);
       }
+      setIsLoading(false);
     });
   }, []);
 
@@ -68,6 +70,7 @@ function App() {
         setUser,
         login: loginWithGoogle,
         logout: logoutWithGoogle,
+        isLoading,
       }}
     >
       <BrowserRouter>

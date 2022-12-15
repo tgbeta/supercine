@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.92c3f93f.css",
-    "main.js": "/static/js/main.faec2e43.js",
+    "main.js": "/static/js/main.cc3e6428.js",
     "static/media/bg-cinema.png": "/static/media/bg-cinema.33330872eeed15e2db3b.png",
     "static/media/vini.png": "/static/media/vini.495a603e0d8c10c980b9.png",
     "static/media/clelia.png": "/static/media/clelia.582cc095c6d6252b3b3a.png",
@@ -19,10 +19,10 @@
     "static/media/Jost-Book.woff2": "/static/media/Jost-Book.d1ec4e3845b0638f4818.woff2",
     "index.html": "/index.html",
     "main.92c3f93f.css.map": "/static/css/main.92c3f93f.css.map",
-    "main.faec2e43.js.map": "/static/js/main.faec2e43.js.map"
+    "main.cc3e6428.js.map": "/static/js/main.cc3e6428.js.map"
   },
   "entrypoints": [
     "static/css/main.92c3f93f.css",
-    "static/js/main.faec2e43.js"
+    "static/js/main.cc3e6428.js"
   ]
 }

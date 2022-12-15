@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const movieSearch = (req, res) => {
-//  console.log(req.query);
+  //  console.log(req.query);
 
   axios
     .get(
@@ -29,6 +29,7 @@ const moviePopular = (req, res) => {
 };
 
 const movieUpcoming = (req, res) => {
+  console.log("api tmdb", process.env);
   axios
     .get(
       `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB}`
@@ -53,8 +54,8 @@ const movieDetails = async (req, res) => {
 
     let trailerLink = "";
 
-   // console.log("trailer", responseTrailer.data.results);
-   // console.log("genres", responseDetails.data.genres);
+    // console.log("trailer", responseTrailer.data.results);
+    // console.log("genres", responseDetails.data.genres);
 
     for (i = 0; i < responseTrailer.data.results.length; i++) {
       if (responseTrailer.data.results[i].type == "Trailer") {
@@ -71,13 +72,12 @@ const movieDetails = async (req, res) => {
       genres: responseDetails.data.genres.map((genre) => genre.name),
     };
 
-   // console.log("response obj", responseDetailsMovie);
+    // console.log("response obj", responseDetailsMovie);
 
     res.json(responseDetailsMovie);
   } catch (err) {
     console.log("erro movieDetails", err);
   }
 };
-
 
 module.exports = { movieSearch, moviePopular, movieUpcoming, movieDetails };
