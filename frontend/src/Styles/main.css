@@ -376,7 +376,7 @@
   border: none;
   font-size: 16px;
   display: flex;
-  width: 185px;
+  width: 200px;
   height: 30px;
   align-items: center;
   margin: 3px 0;
@@ -531,7 +531,11 @@
   background-color: #F2CD36;
 }
 
-:hover, a {
+body {
+  overflow-x: hidden;
+}
+
+:hover, a, button {
   transition: all 0.3s ease;
   text-decoration: none;
 }

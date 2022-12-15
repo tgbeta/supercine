@@ -22,7 +22,11 @@ $main-color: #F2CD36;
 @import "_about-us";
 @import "footer";
 
-:hover, a{
+body{
+    overflow-x: hidden; 
+}
+
+:hover, a, button{
     transition: all 0.3s ease;
     text-decoration: none;
 }

@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.00744a59.css",
+    "main.css": "/static/css/main.e4a9c8c2.css",
     "main.js": "/static/js/main.ca99462d.js",
     "static/media/bg-cinema.png": "/static/media/bg-cinema.33330872eeed15e2db3b.png",
     "static/media/vini.png": "/static/media/vini.495a603e0d8c10c980b9.png",
@@ -18,11 +18,11 @@
     "static/media/Jost-Light.woff2": "/static/media/Jost-Light.a7325deef93722fc7c6e.woff2",
     "static/media/Jost-Book.woff2": "/static/media/Jost-Book.d1ec4e3845b0638f4818.woff2",
     "index.html": "/index.html",
-    "main.00744a59.css.map": "/static/css/main.00744a59.css.map",
+    "main.e4a9c8c2.css.map": "/static/css/main.e4a9c8c2.css.map",
     "main.ca99462d.js.map": "/static/js/main.ca99462d.js.map"
   },
   "entrypoints": [
-    "static/css/main.00744a59.css",
+    "static/css/main.e4a9c8c2.css",
     "static/js/main.ca99462d.js"
   ]
 }
