@@ -2,7 +2,7 @@ const FavoritesRoute = require("./routes/FavoritesRoute.js");
 const WatchListRoute = require("./routes/WatchListRoute.js");
 const ReviewsRoute = require("./routes/ReviewsRoute.js");
 const UsersRoute = require("./routes/UsersRoute.js");
-const MoviesRoute = require("./routes/MoviesRoute.js");
+const MoviesRoute = require("./routes/moviesRoute.js");
 
 const express = require("express");
 const cors = require("cors");
