@@ -11,6 +11,10 @@
     align-items: flex-start;
     justify-content: center;
     padding: 0 100px;
+    @media (min-width: 200px) { 
+        padding: 0 30px;
+        margin: 0 auto;
+     }
     h2, p{
         font-family: 'JostSemiBold';
         text-transform: uppercase;
@@ -40,7 +44,7 @@
     text-transform: uppercase;
     margin-right: 8px;
     @media (min-width: 200px) { 
-        width: 100%;
+        width: 325px;
      }
      @media (min-width: 768px) { 
         width: 620px;
@@ -53,7 +57,7 @@
     padding: 0px 10px 4px 10px;
     font-size: 22px;
     @media (min-width: 200px) { 
-        width: 100%;
+        width: 325px;
         margin-top: 10px;
      }
      @media (min-width: 768px) { 

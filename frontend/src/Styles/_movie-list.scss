@@ -1,5 +1,8 @@
 .movies-list{
     padding: 50px 100px;
+    @media (min-width: 200px) { 
+        padding: 50px 30px;
+     }
     h2{
         @include title-separator;
     }

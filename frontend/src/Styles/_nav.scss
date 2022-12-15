@@ -3,6 +3,9 @@
     font-family: 'JostSemiBold';
     font-size: 1.1rem;
     padding: 0 100px;
+    @media (min-width: 200px) { 
+        padding: 10px;
+     }
 }
 
 .navbar-nav{

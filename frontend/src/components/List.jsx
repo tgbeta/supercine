@@ -87,7 +87,7 @@ return (
                 <h2>My Watch List</h2>
                 <Row className="justify-content-start">
                   {watchlist.map((wat) => (
-                    <Col xs={6} md={6}	lg={2} className="mb-3">
+                    <Col xs={12} md={6}	lg={2} className="mb-3">
                       <img src={`${wat.posterpath}`} className="img-fluid" alt="" />
                       <span>{`${wat.movie}`}</span>
                       <button className="btn-remove"  onClick={ () => { deleteWatchlist(wat.id) }}><BsTrash /> Remove</button>
@@ -101,7 +101,7 @@ return (
                 <h2>MY Favorites Movies</h2>
                 <Row className="justify-content-start"> 
                  {favorites.map((fav) => (
-                   <Col xs={6} md={6}	lg={2} className="mb-3">
+                   <Col xs={12} md={6}	lg={2} className="mb-3">
                       <img src= {`${fav.posterpath}`} className="img-fluid" alt="" />
                       <span>{`${fav.movie}`}</span>
                       <button className="btn-remove" onClick={ () => {deleteFavorite(fav.id)} }><BsTrash /> Remove</button>

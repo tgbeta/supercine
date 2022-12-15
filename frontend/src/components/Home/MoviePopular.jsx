@@ -29,7 +29,7 @@ export default function MoviePopular() {
        <Container fluid className="popular-upcoming">
             <Row className="justify-content-between">             
                 {                     
-                        movies.map(movie => <Col xs={6} md={3} xl={1} className="col-pointer" onClick={(event) => handleMovieOnClick(event, movie)}>
+                        movies.map(movie => <Col xs={6} md={3} xl={1} className="col-pointer mb-3" onClick={(event) => handleMovieOnClick(event, movie)}>
                             <img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt="" className="img-fluid"/>
                             <p>{movie.original_title}</p>
                             </Col>   )
