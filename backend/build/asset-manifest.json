@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.92c3f93f.css",
+    "main.js": "/static/js/main.faec2e43.js",
+    "static/media/bg-cinema.png": "/static/media/bg-cinema.33330872eeed15e2db3b.png",
+    "static/media/vini.png": "/static/media/vini.495a603e0d8c10c980b9.png",
+    "static/media/clelia.png": "/static/media/clelia.582cc095c6d6252b3b3a.png",
+    "static/media/tatiana.png": "/static/media/tatiana.227c025cbaa1b78fe80c.png",
+    "static/media/bg-join-us.jpg": "/static/media/bg-join-us.7203c309e07c7d7e7935.jpg",
+    "static/media/Jost-Semi.woff": "/static/media/Jost-Semi.29ad3cc63212975bc165.woff",
+    "static/media/Jost-Thin.woff": "/static/media/Jost-Thin.2f84fb84cabc91eb448b.woff",
+    "static/media/Jost-Medium.woff": "/static/media/Jost-Medium.14df71e21552511dc31e.woff",
+    "static/media/Jost-Light.woff": "/static/media/Jost-Light.7d98448bd2c54c6a593e.woff",
+    "static/media/Jost-Book.woff": "/static/media/Jost-Book.c0f038602711a72d95f8.woff",
+    "static/media/Jost-Semi.woff2": "/static/media/Jost-Semi.6e6d2eca8d47abb18199.woff2",
+    "static/media/Jost-Thin.woff2": "/static/media/Jost-Thin.37c84d4eeef49fdc0657.woff2",
+    "static/media/Jost-Medium.woff2": "/static/media/Jost-Medium.295ccf0984eaf1c69415.woff2",
+    "static/media/Jost-Light.woff2": "/static/media/Jost-Light.a7325deef93722fc7c6e.woff2",
+    "static/media/Jost-Book.woff2": "/static/media/Jost-Book.d1ec4e3845b0638f4818.woff2",
+    "index.html": "/index.html",
+    "main.92c3f93f.css.map": "/static/css/main.92c3f93f.css.map",
+    "main.faec2e43.js.map": "/static/js/main.faec2e43.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.92c3f93f.css",
+    "static/js/main.faec2e43.js"
+  ]
+}
